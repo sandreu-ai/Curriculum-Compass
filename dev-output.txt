@@ -1,0 +1,21 @@
+
+> curriculum-compass@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3001
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.2s (532 modules)
+ GET / 200 in 5537ms
+ ○ Compiling /quiz ...
+ ✓ Compiled /quiz in 580ms (522 modules)
+ ○ Compiling /results ...
+ ✓ Compiled /results in 651ms (537 modules)
+ ✓ Compiled in 263ms (271 modules)
+ ○ Compiling /directory ...
+ ✓ Compiled /directory in 628ms (545 modules)
+ ✓ Compiled in 243ms (274 modules)

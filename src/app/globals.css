@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-forest: #1f6a4f;
+  --color-forest-light: #2d8a68;
+  --color-forest-dark: #154d39;
+  --color-cream: #fdfcf8;
+  --color-cream-dark: #f5f0e8;
+  --color-cream-darker: #ede8dc;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cream);
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    color: #1a1a1a;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-playfair), Georgia, serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-forest text-cream px-6 py-3 rounded-lg font-body font-semibold text-base hover:bg-forest-light transition-colors duration-200 inline-block;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-forest text-forest px-6 py-3 rounded-lg font-body font-semibold text-base hover:bg-forest hover:text-cream transition-colors duration-200 inline-block;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-cream-darker p-6;
+  }
+
+  .section-heading {
+    @apply font-heading text-3xl md:text-4xl text-forest-dark leading-tight;
+  }
+
+  .tag-badge {
+    @apply text-xs font-body font-medium px-2.5 py-1 rounded-full;
+  }
+}
