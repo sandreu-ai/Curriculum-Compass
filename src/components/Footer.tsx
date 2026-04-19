@@ -27,6 +27,7 @@ export default function Footer() {
               {[
                 { href: '/quiz', label: 'Take the Quiz' },
                 { href: '/directory', label: 'Browse All Curricula' },
+                { href: '/blog', label: 'Blog' },
                 { href: '/directory#state-laws', label: 'State Law Requirements' },
               ].map(({ href, label }) => (
                 <li key={href}>

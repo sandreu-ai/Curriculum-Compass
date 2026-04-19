@@ -7,6 +7,61 @@ export const metadata: Metadata = {
   title: 'Find Your Perfect Homeschool Curriculum — Free Quiz',
   description:
     'Answer 20 questions about your family and get your top 3 personalized homeschool curriculum matches — free, in minutes. 40+ curricula reviewed.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Find Your Perfect Homeschool Curriculum — Free Quiz',
+    description:
+      'Free 20-question quiz matches your family to the best homeschool curriculum. 40+ reviewed across every approach, faith, and budget.',
+    url: '/',
+    type: 'website',
+  },
+}
+
+const FAQ_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How does the homeschool curriculum quiz work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'You answer 20 questions about your child\'s learning style, your family\'s faith orientation, budget, teaching style, and priorities. Our matching engine scores your answers against 40+ reviewed curricula and returns your top 3 personalized matches with specific reasons why each one fits your family.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is the quiz really free?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes — the quiz and your personalized matches are 100% free, with no email required to see your results. We may earn affiliate commissions if you purchase a curriculum through our links, at no cost to you.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How many homeschool curricula do you review?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'We review 40+ homeschool curricula spanning classical, Charlotte Mason, literature-based, traditional, online, and unit-study approaches — covering Christian, Catholic, Jewish, secular, and faith-neutral options across every budget.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you cover state homeschool laws?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Our directory includes a quick-reference guide to homeschool requirements in all 50 states and DC — covering notice requirements, portfolio or assessment rules, and teacher qualifications.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I know which curriculum is right for my family?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The right curriculum depends on your child\'s learning style, your teaching availability, your family\'s values, and your budget. Our quiz considers all of these factors and ranks matches by fit — then explains why each curriculum was chosen for you.',
+      },
+    },
+  ],
 }
 
 const FEATURED_IDS = ['sonlight', 'the-good-and-the-beautiful', 'teaching-textbooks']
@@ -44,8 +99,15 @@ export default function HomePage() {
     },
   ]
 
+  const faqs = FAQ_JSONLD.mainEntity
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }}
+      />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-forest-dark via-forest to-forest-light">
         <div
@@ -163,6 +225,36 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* FAQ */}
+      <section className="bg-cream-dark border-t border-cream-darker">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+          <div className="text-center mb-10">
+            <h2 className="font-heading text-3xl md:text-4xl text-forest-dark mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="font-body text-gray-500">
+              Everything you need to know before taking the quiz.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((item, i) => (
+              <details
+                key={i}
+                className="group bg-white rounded-xl border border-cream-darker p-5 open:shadow-sm"
+              >
+                <summary className="font-heading text-lg text-forest-dark cursor-pointer list-none flex justify-between items-center gap-4">
+                  {item.name}
+                  <span className="text-forest text-xl transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="font-body text-gray-600 leading-relaxed mt-3">
+                  {item.acceptedAnswer.text}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Trust section */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { scoreCurricula } from '@/lib/scoring'
 import type { QuizAnswers } from '@/types'
 import CurriculumCard from '@/components/CurriculumCard'
+import EmailCapture from '@/components/EmailCapture'
 
 export default function ResultsClient() {
   const searchParams = useSearchParams()
@@ -97,8 +98,13 @@ export default function ResultsClient() {
           ))}
         </div>
 
+        {/* Email capture */}
+        <div className="mt-10">
+          <EmailCapture answersParam={encoded} />
+        </div>
+
         {/* Retake / Browse */}
-        <div className="mt-12 text-center bg-cream-dark rounded-2xl p-8 border border-cream-darker">
+        <div className="mt-10 text-center bg-cream-dark rounded-2xl p-8 border border-cream-darker">
           <h2 className="font-heading text-2xl text-forest-dark mb-3">
             Want to explore more options?
           </h2>

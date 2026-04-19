@@ -11,6 +11,7 @@ export default function NavBar() {
   const links = [
     { href: '/quiz', label: 'Take the Quiz' },
     { href: '/directory', label: 'Browse All' },
+    { href: '/blog', label: 'Blog' },
     { href: '/directory#state-laws', label: 'State Laws' },
   ]
 
