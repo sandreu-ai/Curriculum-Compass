@@ -1,16 +1,22 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { scoreCurricula } from '@/lib/scoring'
 import type { QuizAnswers } from '@/types'
 import CurriculumCard from '@/components/CurriculumCard'
-import EmailCapture from '@/components/EmailCapture'
+
+type GateStatus = 'idle' | 'loading' | 'success' | 'error'
 
 export default function ResultsClient() {
   const searchParams = useSearchParams()
   const encoded = searchParams.get('a')
+
+  const [email, setEmail] = useState('')
+  const [gateStatus, setGateStatus] = useState<GateStatus>('idle')
+  const [gateError, setGateError] = useState('')
+  const [unlocked, setUnlocked] = useState(false)
 
   const results = useMemo(() => {
     if (!encoded) return null
@@ -21,6 +27,35 @@ export default function ResultsClient() {
       return null
     }
   }, [encoded])
+
+  const handleUnlock = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email.trim() || !encoded) return
+
+    setGateStatus('loading')
+    setGateError('')
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim(), answers: encoded }),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        setGateStatus('error')
+        setGateError(data?.error ?? 'Something went wrong. Please try again.')
+        return
+      }
+
+      setGateStatus('success')
+      setUnlocked(true)
+    } catch {
+      setGateStatus('error')
+      setGateError('Something went wrong. Please check your connection and try again.')
+    }
+  }
 
   if (!encoded || !results) {
     return (
@@ -49,9 +84,8 @@ export default function ResultsClient() {
             No strong matches found
           </p>
           <p className="font-body text-gray-600 mb-6">
-            Your answers may have filtered out most curricula (such as a very specific faith and
-            budget combination). Try retaking the quiz with slightly broader preferences, or browse
-            our full directory.
+            Your answers may have filtered out most curricula. Try retaking the quiz with slightly
+            broader preferences, or browse our full directory.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/quiz" className="btn-primary">
@@ -65,6 +99,9 @@ export default function ResultsClient() {
       </div>
     )
   }
+
+  const first = results[0]
+  const rest = results.slice(1)
 
   return (
     <div className="bg-cream min-h-screen">
@@ -88,20 +125,84 @@ export default function ResultsClient() {
       {/* Results */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
         <div className="space-y-8">
-          {results.map(({ curriculum, matchReasons }, index) => (
-            <CurriculumCard
-              key={curriculum.id}
-              curriculum={curriculum}
-              matchReasons={matchReasons}
-              rank={index + 1}
-            />
-          ))}
+
+          {/* First result — always visible */}
+          <CurriculumCard
+            curriculum={first.curriculum}
+            matchReasons={first.matchReasons}
+            rank={1}
+          />
+
+          {/* Gate or remaining results */}
+          {rest.length > 0 && (
+            <div className="relative">
+              {/* Blurred cards underneath */}
+              <div className={`space-y-8 transition-all duration-500 ${unlocked ? '' : 'blur-sm pointer-events-none select-none'}`}>
+                {rest.map(({ curriculum, matchReasons }, index) => (
+                  <CurriculumCard
+                    key={curriculum.id}
+                    curriculum={curriculum}
+                    matchReasons={matchReasons}
+                    rank={index + 2}
+                  />
+                ))}
+              </div>
+
+              {/* Email gate overlay */}
+              {!unlocked && (
+                <div className="absolute inset-0 flex items-center justify-center px-4">
+                  <div className="bg-white border border-cream-darker rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-md text-center">
+                    <div className="text-4xl mb-3">🔒</div>
+                    <h2 className="font-heading text-2xl text-forest-dark mb-2">
+                      Unlock Your Remaining Matches
+                    </h2>
+                    <p className="font-body text-gray-600 mb-5">
+                      Enter your email to see match{rest.length > 1 ? 'es' : ''} #2
+                      {rest.length > 1 ? ` and #${rest.length + 1}` : ''} — plus we&apos;ll send
+                      all your results so you can come back to them later.
+                    </p>
+
+                    <form onSubmit={handleUnlock} className="space-y-3">
+                      <input
+                        type="email"
+                        required
+                        placeholder="your@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={gateStatus === 'loading'}
+                        className="w-full px-4 py-3 rounded-xl border border-cream-darker font-body text-base focus:outline-none focus:border-forest bg-cream disabled:opacity-50"
+                      />
+                      <button
+                        type="submit"
+                        disabled={gateStatus === 'loading' || !email.trim()}
+                        className="w-full bg-forest text-cream font-body font-semibold px-6 py-3 rounded-xl hover:bg-forest-light transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {gateStatus === 'loading' ? 'Unlocking…' : 'Show My Full Results →'}
+                      </button>
+                    </form>
+
+                    {gateStatus === 'error' && gateError && (
+                      <p className="font-body text-sm text-red-600 mt-3">{gateError}</p>
+                    )}
+
+                    <p className="font-body text-xs text-gray-400 mt-4">
+                      No spam — just your results. Unsubscribe anytime.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Email capture */}
-        <div className="mt-10">
-          <EmailCapture answersParam={encoded} />
-        </div>
+        {/* Success message after unlock */}
+        {unlocked && (
+          <div className="mt-8 bg-green-50 border border-green-200 rounded-2xl p-5 text-center">
+            <p className="font-body text-forest-dark font-semibold">
+              📬 Check your inbox — your full results are on the way!
+            </p>
+          </div>
+        )}
 
         {/* Retake / Browse */}
         <div className="mt-10 text-center bg-cream-dark rounded-2xl p-8 border border-cream-darker">
