@@ -5,6 +5,15 @@ import ResultsClient from './ResultsClient'
 export const metadata: Metadata = {
   title: 'Your Curriculum Matches',
   description: 'Your personalized homeschool curriculum recommendations based on your family\'s needs.',
+  alternates: { canonical: '/results' },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 }
 
 function LoadingFallback() {

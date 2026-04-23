@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/blog'
+import { SITE_NAME, SITE_URL } from '@/lib/siteConfig'
 
 export const metadata: Metadata = {
   title: 'Homeschool Curriculum Blog — Guides, Reviews & Comparisons',
@@ -19,8 +20,56 @@ export const metadata: Metadata = {
 export default function BlogIndexPage() {
   const posts = getAllPosts()
 
+  const blogJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: `${SITE_NAME} Blog`,
+    description:
+      'Honest guides, deep curriculum comparisons, and practical advice for homeschool families.',
+    url: `${SITE_URL}/blog`,
+    blogPost: posts.map((post) => ({
+      '@type': 'BlogPosting',
+      headline: post.title,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      datePublished: post.date,
+      author: {
+        '@type': 'Organization',
+        name: post.author,
+      },
+      description: post.description,
+    })),
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: `${SITE_URL}/blog`,
+      },
+    ],
+  }
+
   return (
-    <div className="bg-cream min-h-screen">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <div className="bg-cream min-h-screen">
       <div className="bg-gradient-to-br from-forest-dark to-forest text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-14 text-center">
           <h1 className="font-heading text-4xl sm:text-5xl text-white mb-3">
@@ -87,7 +136,8 @@ export default function BlogIndexPage() {
             Take the Free Quiz →
           </Link>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

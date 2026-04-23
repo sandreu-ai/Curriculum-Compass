@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import DirectoryClient from './DirectoryClient'
+import { SITE_NAME, SITE_URL } from '@/lib/siteConfig'
 
 export const metadata: Metadata = {
   title: 'Homeschool Curriculum Directory — 40+ Reviewed Options',
@@ -16,5 +17,50 @@ export const metadata: Metadata = {
 }
 
 export default function DirectoryPage() {
-  return <DirectoryClient />
+  const directoryJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Homeschool Curriculum Directory',
+    description:
+      'Browse 40+ homeschool curricula by approach, faith, budget, and grade level.',
+    url: `${SITE_URL}/directory`,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Directory',
+        item: `${SITE_URL}/directory`,
+      },
+    ],
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(directoryJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <DirectoryClient />
+    </>
+  )
 }
