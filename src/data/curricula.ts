@@ -638,10 +638,10 @@ export const curricula: Curriculum[] = [
       'Not ideal for families wanting secular science',
     ],
     faithOrientation: 'christian',
-    affiliateUrl: 'https://www.masterbooks.com/?ref=curriculumcompass',
+    affiliateUrl: 'https://www.masterbooks.com/?acc=38d9ef8c111b6c90745ef07da6ebbe9e',
     websiteUrl: 'https://www.masterbooks.com',
     stateAccepted: 'all',
-    lastVerified: '2025-01-01',
+    lastVerified: '2026-04-22',
   },
   {
     id: 'apologia',
