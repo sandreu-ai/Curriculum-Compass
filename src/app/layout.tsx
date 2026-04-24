@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
@@ -102,6 +103,7 @@ export default function RootLayout({
         <NavBar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
