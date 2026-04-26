@@ -47,7 +47,7 @@ export default function HeroSection({ stats }: { stats: Stat[] }) {
           >
             {/* Logo */}
             <motion.div variants={slideDown} className="mb-6">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto relative">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto relative">
                 <Image
                   src="/logo.png"
                   alt="The Curriculum Compass"

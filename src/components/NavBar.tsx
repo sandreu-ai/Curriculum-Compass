@@ -23,7 +23,7 @@ export default function NavBar() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="relative w-8 h-8 shrink-0">
+          <div className="relative w-11 h-11 shrink-0">
             <Image
               src="/logo.png"
               alt="The Curriculum Compass"
