@@ -2,6 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { curricula } from '@/data/curricula'
 import CurriculumCard from '@/components/CurriculumCard'
+import HeroSection from '@/components/HeroSection'
+import FAQAccordion from '@/components/FAQAccordion'
+import DanielaSiteSection from '@/components/DanielaSiteSection'
+import AnimatedSection from '@/components/AnimatedSection'
+import BouncyButton from '@/components/BouncyButton'
 
 export const metadata: Metadata = {
   title: 'Find Your Perfect Homeschool Curriculum — Free Quiz',
@@ -64,41 +69,38 @@ const FAQ_JSONLD = {
   ],
 }
 
-const FEATURED_IDS = ['sonlight', 'the-good-and-the-beautiful', 'teaching-textbooks']
+const stats = [
+  { number: '40+', label: 'Curricula Reviewed' },
+  { number: '20', label: 'Question Quiz' },
+  { number: '50', label: 'State Laws Covered' },
+  { number: 'Free', label: 'Always Free' },
+]
+
+const steps = [
+  {
+    step: '1',
+    title: 'Answer 20 Questions',
+    description:
+      'Tell us about your child\'s learning style, your family\'s faith, budget, teaching style, and what matters most to you.',
+  },
+  {
+    step: '2',
+    title: 'We Match You',
+    description:
+      'Our matching engine scores your answers against 40+ carefully reviewed curricula to find your top fits.',
+  },
+  {
+    step: '3',
+    title: 'Get Your Top 3',
+    description:
+      'Receive personalized curriculum recommendations with specific reasons why each one is right for your family.',
+  },
+]
 
 export default function HomePage() {
   const featured = curricula.filter((c) =>
     ['sonlight', 'good-and-beautiful', 'teaching-textbooks'].includes(c.id)
   )
-
-  const stats = [
-    { number: '40+', label: 'Curricula Reviewed' },
-    { number: '20', label: 'Question Quiz' },
-    { number: '50', label: 'State Laws Covered' },
-    { number: 'Free', label: 'Always Free' },
-  ]
-
-  const steps = [
-    {
-      step: '1',
-      title: 'Answer 20 Questions',
-      description:
-        'Tell us about your child\'s learning style, your family\'s faith, budget, teaching style, and what matters most to you.',
-    },
-    {
-      step: '2',
-      title: 'We Match You',
-      description:
-        'Our matching engine scores your answers against 40+ carefully reviewed curricula to find your top fits.',
-    },
-    {
-      step: '3',
-      title: 'Get Your Top 3',
-      description:
-        'Receive personalized curriculum recommendations with specific reasons why each one is right for your family.',
-    },
-  ]
-
   const faqs = FAQ_JSONLD.mainEntity
 
   return (
@@ -108,68 +110,11 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }}
       />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-forest-dark via-forest to-forest-light">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 20% 50%, #fdfcf8 0%, transparent 50%), radial-gradient(circle at 80% 20%, #fdfcf8 0%, transparent 40%)',
-          }}
-        />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-green-100 font-body text-sm px-4 py-2 rounded-full border border-white/20 mb-6">
-            <span>🌿</span>
-            <span>Free curriculum matching for homeschool families</span>
-          </div>
-
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl text-white leading-tight max-w-3xl mx-auto mb-6">
-            Find the Perfect Curriculum for{' '}
-            <span className="text-green-200 italic">Your</span> Family
-          </h1>
-
-          <p className="font-body text-lg sm:text-xl text-green-100 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Answer 20 questions about your child, your teaching style, and your family values —
-            and we&apos;ll match you with your top 3 homeschool curricula. Free. In minutes.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/quiz"
-              className="bg-white text-forest font-body font-bold text-lg px-8 py-4 rounded-xl hover:bg-cream transition-colors duration-200 shadow-lg"
-            >
-              Take the Free Quiz →
-            </Link>
-            <Link
-              href="/directory"
-              className="border-2 border-white/60 text-white font-body font-semibold text-lg px-8 py-4 rounded-xl hover:bg-white/10 transition-colors duration-200"
-            >
-              Browse All Curricula
-            </Link>
-          </div>
-
-          <p className="font-body text-sm text-green-300 mt-6">
-            Takes about 5 minutes · No email required · 100% free
-          </p>
-        </div>
-      </section>
-
-      {/* Stats bar */}
-      <section className="bg-cream-dark border-y border-cream-darker">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map(({ number, label }) => (
-              <div key={label} className="text-center">
-                <div className="font-heading text-3xl text-forest">{number}</div>
-                <div className="font-body text-sm text-gray-500 mt-0.5">{label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Hero + Stats — animated client component */}
+      <HeroSection stats={stats} />
 
       {/* How it works */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+      <AnimatedSection className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl text-forest-dark mb-4">
             How It Works
@@ -180,85 +125,77 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map(({ step, title, description }) => (
-            <div key={step} className="text-center">
+          {steps.map(({ step, title, description }, i) => (
+            <AnimatedSection key={step} delay={i * 0.12} className="text-center">
               <div className="w-14 h-14 rounded-full bg-forest text-cream font-heading text-2xl flex items-center justify-center mx-auto mb-4">
                 {step}
               </div>
               <h3 className="font-heading text-xl text-forest-dark mb-2">{title}</h3>
               <p className="font-body text-gray-600 leading-relaxed">{description}</p>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
 
         <div className="text-center mt-10">
-          <Link href="/quiz" className="btn-primary text-lg px-8 py-4">
+          <BouncyButton href="/quiz" className="btn-primary text-lg px-8 py-4">
             Start the Quiz — It&apos;s Free
-          </Link>
+          </BouncyButton>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Featured curricula */}
       {featured.length > 0 && (
         <section className="bg-cream-dark border-t border-cream-darker">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-            <div className="text-center mb-10">
+            <AnimatedSection className="text-center mb-10">
               <h2 className="font-heading text-3xl md:text-4xl text-forest-dark mb-4">
                 A Few Families&apos; Favorites
               </h2>
               <p className="font-body text-gray-500 text-lg max-w-xl mx-auto">
                 Browse a sample of the curricula we review — or take the quiz to find your personal matches.
               </p>
-            </div>
+            </AnimatedSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              {featured.map((curriculum) => (
-                <CurriculumCard key={curriculum.id} curriculum={curriculum} compact />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {featured.map((curriculum, i) => (
+                <AnimatedSection key={curriculum.id} delay={i * 0.1}>
+                  <CurriculumCard curriculum={curriculum} compact />
+                </AnimatedSection>
               ))}
             </div>
 
             <div className="text-center">
-              <Link href="/directory" className="btn-secondary">
+              <BouncyButton href="/directory" className="btn-secondary">
                 Browse All 40+ Curricula →
-              </Link>
+              </BouncyButton>
             </div>
           </div>
         </section>
       )}
 
+      {/* Meet Daniela cross-link section */}
+      <section className="bg-cream border-t border-cream-darker">
+        <DanielaSiteSection />
+      </section>
+
       {/* FAQ */}
       <section className="bg-cream-dark border-t border-cream-darker">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-          <div className="text-center mb-10">
+          <AnimatedSection className="text-center mb-10">
             <h2 className="font-heading text-3xl md:text-4xl text-forest-dark mb-4">
               Frequently Asked Questions
             </h2>
             <p className="font-body text-gray-500">
               Everything you need to know before taking the quiz.
             </p>
-          </div>
-          <div className="space-y-4">
-            {faqs.map((item, i) => (
-              <details
-                key={i}
-                className="group bg-white rounded-xl border border-cream-darker p-5 open:shadow-sm"
-              >
-                <summary className="font-heading text-lg text-forest-dark cursor-pointer list-none flex justify-between items-center gap-4">
-                  {item.name}
-                  <span className="text-forest text-xl transition-transform group-open:rotate-45">+</span>
-                </summary>
-                <p className="font-body text-gray-600 leading-relaxed mt-3">
-                  {item.acceptedAnswer.text}
-                </p>
-              </details>
-            ))}
-          </div>
+          </AnimatedSection>
+          <FAQAccordion faqs={faqs} />
         </div>
       </section>
 
       {/* Trust section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-        <div className="bg-forest rounded-2xl p-8 md:p-12 text-center">
+      <AnimatedSection className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+        <div className="bg-forest rounded-2xl p-6 sm:p-8 md:p-12 text-center">
           <h2 className="font-heading text-3xl md:text-4xl text-white mb-4">
             Built for Homeschool Moms, By Homeschool Moms
           </h2>
@@ -268,21 +205,21 @@ export default function HomePage() {
             don&apos;t have to spend weeks in Facebook groups trying to figure it out.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
+            <BouncyButton
               href="/quiz"
-              className="bg-white text-forest font-body font-bold px-8 py-4 rounded-xl hover:bg-cream transition-colors duration-200"
+              className="bg-white text-forest font-body font-bold px-8 py-4 rounded-xl"
             >
               Find My Curriculum Match →
-            </Link>
-            <Link
+            </BouncyButton>
+            <BouncyButton
               href="/directory#state-laws"
               className="border-2 border-white/60 text-white font-body font-semibold px-8 py-4 rounded-xl hover:bg-white/10 transition-colors duration-200"
             >
               Check My State&apos;s Laws
-            </Link>
+            </BouncyButton>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   )
 }

@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import type { Curriculum } from '@/types'
 import TagBadge from './TagBadge'
 
@@ -32,14 +35,23 @@ export default function CurriculumCard({
   const displayTags = getDisplayTags(curriculum.tags)
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-cream-darker overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <motion.div
+      whileHover={{ y: -6, boxShadow: '0 12px 40px rgba(31,106,79,0.18)' }}
+      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+      className="bg-white rounded-2xl shadow-sm border border-cream-darker overflow-hidden"
+    >
       {rank && (
-        <div className="bg-forest px-4 py-2 flex items-center gap-2">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 24, delay: 0.1 }}
+          className="bg-forest px-4 py-2 flex items-center gap-2"
+        >
           <span className="text-cream font-body font-bold text-sm">
             #{rank} Match
           </span>
           <span className="text-green-200 text-xs font-body">for your family</span>
-        </div>
+        </motion.div>
       )}
 
       <div className="p-6">
@@ -126,22 +138,27 @@ export default function CurriculumCard({
         )}
 
         <div className="flex gap-3">
-          <Link
-            href={`/curriculum/${curriculum.id}`}
-            className="flex-1 text-center border border-forest text-forest font-body font-semibold text-sm py-2.5 rounded-lg hover:bg-forest hover:text-cream transition-colors duration-200"
-          >
-            Learn More
-          </Link>
-          <a
+          <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 400, damping: 20 }}>
+            <Link
+              href={`/curriculum/${curriculum.id}`}
+              className="block text-center border border-forest text-forest font-body font-semibold text-sm py-2.5 rounded-lg hover:bg-forest hover:text-cream transition-colors duration-200"
+            >
+              Learn More
+            </Link>
+          </motion.div>
+          <motion.a
             href={curriculum.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 text-center bg-forest text-cream font-body font-semibold text-sm py-2.5 rounded-lg hover:bg-forest-light transition-colors duration-200"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
           >
             Visit Website →
-          </a>
+          </motion.a>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
