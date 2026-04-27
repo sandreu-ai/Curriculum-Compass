@@ -118,6 +118,9 @@ export default function NavBar() {
                 <a href="https://danielacerrato.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-body text-sm text-gray-700 hover:text-forest py-2 transition-colors">
                   🌿 Daniela Cerrato
                 </a>
+                <a href="https://statehomeschoollaws.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-body text-sm text-gray-700 hover:text-forest py-2 transition-colors">
+                  📋 State Homeschool Laws
+                </a>
               </div>
               <Link
                 href="/quiz"
