@@ -77,6 +77,23 @@ export default function OurSitesDropdown() {
                   </p>
                 </div>
               </a>
+              <a
+                href="https://statehomeschoollaws.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="flex items-start gap-3 p-3 rounded-xl hover:bg-cream transition-colors duration-150 group"
+              >
+                <span className="text-2xl mt-0.5">📋</span>
+                <div>
+                  <p className="font-heading text-sm text-forest-dark group-hover:text-forest transition-colors">
+                    State Homeschool Laws
+                  </p>
+                  <p className="font-body text-xs text-gray-500 mt-0.5">
+                    Plain-English law guides for all 50 states
+                  </p>
+                </div>
+              </a>
             </div>
           </motion.div>
         )}
