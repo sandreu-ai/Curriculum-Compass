@@ -27,7 +27,7 @@ export const curricula: Curriculum[] = [
       'Light on math and science — must supplement',
     ],
     faithOrientation: 'christian',
-    affiliateUrl: 'https://www.sonlight.com/',
+    affiliateUrl: 'https://affiliate.sonlight.com/245.html',
     websiteUrl: 'https://www.sonlight.com',
     stateAccepted: 'all',
     lastVerified: '2025-01-01',
