@@ -269,7 +269,7 @@ export default function CurriculumDetailPage({ params }: PageProps) {
                 <a
                   href={curriculum.affiliateUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="sponsored noopener noreferrer"
                   className="block w-full text-center bg-white text-forest font-body font-bold py-3 rounded-xl hover:bg-cream transition-colors duration-200 text-sm"
                 >
                   Visit {curriculum.name} →

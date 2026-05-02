@@ -149,7 +149,7 @@ export default function CurriculumCard({
           <motion.a
             href={curriculum.affiliateUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="sponsored noopener noreferrer"
             className="flex-1 text-center bg-forest text-cream font-body font-semibold text-sm py-2.5 rounded-lg hover:bg-forest-light transition-colors duration-200"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
