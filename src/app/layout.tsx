@@ -51,12 +51,14 @@ export const metadata: Metadata = {
     title: 'The Curriculum Compass — Find Your Perfect Homeschool Curriculum',
     description:
       'Answer 20 questions about your family and get your top 3 homeschool curriculum matches — personalized, free, and in minutes.',
+    images: ['/og-image.svg'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'The Curriculum Compass — Find Your Perfect Homeschool Curriculum',
     description:
       'Free 20-question quiz matches your family to the best homeschool curriculum. 40+ reviewed.',
+    images: ['/og-image.svg'],
   },
 }
 

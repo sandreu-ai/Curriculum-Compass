@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">The Curriculum Compass</title>
+  <desc id="desc">Find your perfect homeschool curriculum with a free personalized quiz.</desc>
+  <rect width="1200" height="630" fill="#F7F1E3"/>
+  <circle cx="1040" cy="110" r="170" fill="#DDE7C7" opacity="0.8"/>
+  <circle cx="120" cy="550" r="190" fill="#E9C46A" opacity="0.35"/>
+  <rect x="88" y="82" width="1024" height="466" rx="42" fill="#1F3D2B"/>
+  <path d="M600 142c70 0 126 56 126 126 0 101-126 210-126 210S474 369 474 268c0-70 56-126 126-126Z" fill="#F7F1E3" opacity="0.12"/>
+  <circle cx="600" cy="268" r="64" fill="none" stroke="#E9C46A" stroke-width="16"/>
+  <path d="M600 204v64l44 32" fill="none" stroke="#E9C46A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="205" text-anchor="middle" fill="#F7F1E3" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700">The Curriculum Compass</text>
+  <text x="600" y="296" text-anchor="middle" fill="#DDE7C7" font-family="Arial, sans-serif" font-size="38" font-weight="700">Find Your Perfect Homeschool Curriculum</text>
+  <text x="600" y="362" text-anchor="middle" fill="#F7F1E3" font-family="Arial, sans-serif" font-size="30">Free quiz · 40+ reviews · comparisons · best-fit guides</text>
+  <rect x="414" y="416" width="372" height="62" rx="31" fill="#E9C46A"/>
+  <text x="600" y="457" text-anchor="middle" fill="#1F3D2B" font-family="Arial, sans-serif" font-size="24" font-weight="800">Take the Free Quiz</text>
+</svg>
