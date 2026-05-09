@@ -143,6 +143,32 @@ export const bestPages: BestPage[] = [
       { question: 'Do I need a full boxed curriculum for kindergarten?', answer: 'Not necessarily. A strong phonics program, simple math, read-alouds, and hands-on activities may be enough for many families.' },
     ],
   },
+  {
+    slug: 'middle-school-homeschool-curriculum',
+    title: 'Best Middle School Homeschool Curriculum',
+    description: 'Curriculum options for middle school homeschoolers who need more independence, stronger writing, pre-algebra readiness, and clear parent oversight.',
+    audience: 'Families teaching grades 6–8 who want a bridge between elementary hand-holding and high school-level accountability.',
+    criteria: ['Growing student independence', 'Clear writing instruction', 'Pre-algebra or algebra readiness', 'Readable history and science', 'Parent tracking support'],
+    curriculumIds: ['bju-press', 'sonlight', 'teaching-textbooks', 'math-u-see', 'iew', 'notgrass-history'],
+    buyingAdvice: 'Middle school is the time to build stamina and executive function without pretending students are fully independent. Pick one strong math path, one explicit writing path, and content subjects your student can discuss and narrate well.',
+    faqs: [
+      { question: 'What subjects matter most in middle school homeschool?', answer: 'Math, writing, reading stamina, and study habits deserve the most attention because they carry directly into high school work.' },
+      { question: 'Should middle school homeschool be independent?', answer: 'Partly. Students can take on more checklists and assignments, but most still need parent check-ins, corrections, and help planning the week.' },
+    ],
+  },
+  {
+    slug: 'high-school-homeschool-curriculum',
+    title: 'Best High School Homeschool Curriculum',
+    description: 'High school homeschool curriculum options for credit planning, college prep, independent study, and parent-manageable record keeping.',
+    audience: 'Parents planning grades 9–12 who need credible courses, transcript-friendly structure, and realistic accountability.',
+    criteria: ['Transcript-friendly courses', 'College or career readiness', 'Clear grading support', 'Student independence', 'Strong upper-level math, science, and writing'],
+    curriculumIds: ['bju-press', 'veritas-press', 'kolbe-academy', 'apologia', 'teaching-textbooks', 'notgrass-history'],
+    buyingAdvice: 'Start with graduation requirements and transcript goals, then choose providers by subject strength. High school usually works best when parents mix a few strong specialists rather than forcing one publisher to solve every course.',
+    faqs: [
+      { question: 'Can homeschool curriculum count for high school credit?', answer: 'Yes. Parents generally assign credits based on completed coursework, hours, or mastery, but they should keep records and follow their state requirements.' },
+      { question: 'What is the best high school homeschool curriculum for college prep?', answer: 'Look for rigorous writing, lab science support, Algebra I through advanced math options, and clear grading. BJU Press, Veritas Press, Kolbe Academy, Apologia, and Notgrass can each fit different subjects.' },
+    ],
+  },
 ]
 
 export function getBestPageBySlug(slug: string): BestPage | undefined {

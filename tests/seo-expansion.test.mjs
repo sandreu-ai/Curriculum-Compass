@@ -50,8 +50,14 @@ test('step 3 best-for landing pages exist and are indexed', () => {
 
   const bestPages = read('src/data/bestPages.ts')
   const count = (bestPages.match(/slug:/g) ?? []).length
-  assert.ok(count >= 8, `expected at least 8 best-for pages, found ${count}`)
-  for (const slug of ['christian-homeschool-curriculum', 'secular-homeschool-curriculum', 'homeschool-curriculum-for-dyslexia']) {
+  assert.ok(count >= 12, `expected at least 12 best-for pages, found ${count}`)
+  for (const slug of [
+    'christian-homeschool-curriculum',
+    'secular-homeschool-curriculum',
+    'homeschool-curriculum-for-dyslexia',
+    'middle-school-homeschool-curriculum',
+    'high-school-homeschool-curriculum',
+  ]) {
     assert.match(bestPages, new RegExp(slug), `missing ${slug}`)
   }
 
