@@ -1,0 +1,335 @@
+export interface TopicSupportingPage {
+  slug: string
+  title: string
+  intent: 'buyer' | 'comparison' | 'research' | 'planning' | 'compliance'
+  description: string
+  suggestedAngle: string
+}
+
+export interface TopicHub {
+  slug: string
+  path: string
+  title: string
+  eyebrow: string
+  description: string
+  primaryCta: { label: string; href: string }
+  secondaryCta?: { label: string; href: string }
+  pillars: string[]
+  supportingPages: TopicSupportingPage[]
+}
+
+const makePages = (hubSlug: string, items: Array<[string, string, TopicSupportingPage['intent'], string]>): TopicSupportingPage[] =>
+  items.map(([slug, title, intent, angle]) => ({
+    slug,
+    title,
+    intent,
+    description: `${title} — a curriculum decision guide focused on fit, cost, parent workload, learning needs, and what to compare before buying.`,
+    suggestedAngle: angle,
+  }))
+
+export const topicHubs: TopicHub[] = [
+  {
+    slug: 'best-homeschool-curriculum',
+    path: '/best',
+    title: 'Best Homeschool Curriculum',
+    eyebrow: 'Buyer-intent hub',
+    description: 'Best-fit curriculum guides organized by worldview, learning need, grade level, budget, teaching style, and state context.',
+    primaryCta: { label: 'Take the curriculum quiz', href: '/quiz' },
+    secondaryCta: { label: 'Browse the comparison matrix', href: '/tools/curriculum-comparison-matrix' },
+    pillars: ['Best overall programs', 'Best by family priority', 'Best by learner need', 'Best by grade level', 'Best by state compliance workload'],
+    supportingPages: makePages('best-homeschool-curriculum', [
+      ['best-homeschool-curriculum-for-beginners', 'Best Homeschool Curriculum for Beginners', 'buyer', 'Start with open-and-go options and low-risk first-year choices.'],
+      ['best-all-in-one-homeschool-curriculum', 'Best All-in-One Homeschool Curriculum', 'buyer', 'Compare full-program convenience against flexibility and cost.'],
+      ['best-open-and-go-homeschool-curriculum', 'Best Open-and-Go Homeschool Curriculum', 'buyer', 'Rank by parent prep, lesson clarity, and hidden supply requirements.'],
+      ['best-independent-homeschool-curriculum', 'Best Independent Homeschool Curriculum', 'buyer', 'Focus on older students and parent-light daily execution.'],
+      ['best-literature-based-homeschool-curriculum', 'Best Literature-Based Homeschool Curriculum', 'buyer', 'Compare booklists, read-aloud load, and writing expectations.'],
+      ['best-hands-on-homeschool-curriculum', 'Best Hands-On Homeschool Curriculum', 'buyer', 'Evaluate projects, manipulatives, supply burden, and kinesthetic fit.'],
+      ['best-homeschool-curriculum-large-family', 'Best Homeschool Curriculum for Large Families', 'buyer', 'Prioritize reusable resources, multi-age teaching, and scheduling.'],
+      ['best-homeschool-curriculum-working-parents', 'Best Homeschool Curriculum for Working Parents', 'buyer', 'Focus on independence, automated grading, and realistic parent check-ins.'],
+      ['best-homeschool-curriculum-strong-readers', 'Best Homeschool Curriculum for Strong Readers', 'buyer', 'Lean into living books, discussion, and literature-rich programs.'],
+      ['best-homeschool-curriculum-reluctant-learners', 'Best Homeschool Curriculum for Reluctant Learners', 'buyer', 'Reduce friction with shorter lessons, wins, and non-workbook options.'],
+      ['best-homeschool-curriculum-college-bound', 'Best Homeschool Curriculum for College-Bound Students', 'buyer', 'Rank transcript-friendly rigor, labs, writing, and advanced math.'],
+      ['best-homeschool-curriculum-military-families', 'Best Homeschool Curriculum for Military Families', 'buyer', 'Evaluate portability, online access, and state-to-state transitions.'],
+    ]),
+  },
+  {
+    slug: 'curriculum-reviews',
+    path: '/curriculum-reviews',
+    title: 'Curriculum Reviews',
+    eyebrow: 'Review library',
+    description: 'Deep reviews of individual homeschool curricula with parent prep, daily rhythm, fit, drawbacks, cost, and alternatives.',
+    primaryCta: { label: 'Browse all curriculum profiles', href: '/directory' },
+    secondaryCta: { label: 'See match scores', href: '/tools/curriculum-match-score' },
+    pillars: ['Individual curriculum reviews', 'Who it fits best', 'Who should avoid it', 'Daily use notes', 'Alternatives'],
+    supportingPages: makePages('curriculum-reviews', [
+      ['sonlight-review', 'Sonlight Review', 'research', 'Cover literature load, faith fit, cost, and parent read-aloud time.'],
+      ['abeka-review', 'Abeka Review', 'research', 'Cover structure, rigor, workload, and traditional school-at-home fit.'],
+      ['bju-press-review', 'BJU Press Review', 'research', 'Compare video/textbook options and parent management.'],
+      ['good-and-beautiful-review', 'The Good and the Beautiful Review', 'research', 'Discuss gentle lessons, worldview, and subject strengths.'],
+      ['masterbooks-review', 'MasterBooks Review', 'research', 'Cover short lessons, Christian worldview, and rigor tradeoffs.'],
+      ['time4learning-review', 'Time4Learning Review', 'research', 'Analyze online independence, grading, and screen-time tradeoffs.'],
+      ['teaching-textbooks-review', 'Teaching Textbooks Review', 'research', 'Evaluate math independence, grading, and rigor concerns.'],
+      ['math-u-see-review', 'Math-U-See Review', 'research', 'Cover mastery math, manipulatives, and parent teaching load.'],
+      ['all-about-reading-review', 'All About Reading Review', 'research', 'Cover structured literacy and struggling reader fit.'],
+      ['logic-of-english-review', 'Logic of English Review', 'research', 'Compare phonics depth, teacher prep, and dyslexia support.'],
+      ['bookshark-review', 'BookShark Review', 'research', 'Cover secular-ish literature model and Sonlight similarities.'],
+      ['miacademy-review', 'Miacademy Review', 'research', 'Cover online features, independence, and elementary fit.'],
+    ]),
+  },
+  {
+    slug: 'curriculum-comparisons',
+    path: '/compare',
+    title: 'Curriculum Comparisons',
+    eyebrow: 'Versus searches',
+    description: 'Side-by-side curriculum comparisons for parents choosing between two real programs.',
+    primaryCta: { label: 'Open comparison hub', href: '/compare' },
+    secondaryCta: { label: 'Use the matrix', href: '/tools/curriculum-comparison-matrix' },
+    pillars: ['A vs B decisions', 'Cost differences', 'Parent involvement', 'Faith and worldview fit', 'Best-fit verdicts'],
+    supportingPages: makePages('curriculum-comparisons', [
+      ['abeka-vs-bju-press', 'Abeka vs BJU Press', 'comparison', 'Traditional Christian textbook comparison.'],
+      ['sonlight-vs-bookshark', 'Sonlight vs BookShark', 'comparison', 'Literature-rich Christian vs faith-neutral sibling programs.'],
+      ['time4learning-vs-miacademy', 'Time4Learning vs Miacademy', 'comparison', 'Online all-in-one options for parent-light schooling.'],
+      ['teaching-textbooks-vs-ctcmath', 'Teaching Textbooks vs CTCMath', 'comparison', 'Online math independence and pricing comparison.'],
+      ['all-about-reading-vs-logic-of-english', 'All About Reading vs Logic of English', 'comparison', 'Structured literacy and dyslexia-support comparison.'],
+      ['masterbooks-vs-good-and-beautiful', 'MasterBooks vs The Good and the Beautiful', 'comparison', 'Gentle Christian curriculum comparison.'],
+      ['math-u-see-vs-saxon-math', 'Math-U-See vs Saxon Math', 'comparison', 'Mastery manipulatives vs spiral textbook math.'],
+      ['memoria-press-vs-classical-conversations', 'Memoria Press vs Classical Conversations', 'comparison', 'Classical at-home rigor vs community model.'],
+      ['apologia-vs-bju-science', 'Apologia vs BJU Science', 'comparison', 'Christian science curriculum comparison.'],
+      ['oak-meadow-vs-blossom-and-root', 'Oak Meadow vs Blossom and Root', 'comparison', 'Secular/gentle creative homeschool comparison.'],
+      ['notgrass-vs-story-of-the-world', 'Notgrass vs Story of the World', 'comparison', 'History curriculum comparison by age and worldview.'],
+      ['calvert-vs-time4learning', 'Calvert vs Time4Learning', 'comparison', 'Online school-style vs flexible online platform.'],
+    ]),
+  },
+  {
+    slug: 'homeschool-laws-by-state',
+    path: '/homeschool-laws',
+    title: 'Homeschool Laws by State',
+    eyebrow: 'Compliance hub',
+    description: 'State-by-state homeschool requirements connected to curriculum planning, record keeping, and startup checklists.',
+    primaryCta: { label: 'Find your state', href: '/homeschool-laws' },
+    secondaryCta: { label: 'Generate a checklist', href: '/tools/state-compliance-checklist' },
+    pillars: ['Notice requirements', 'Portfolio rules', 'Assessment rules', 'Teacher qualifications', 'Official state sources'],
+    supportingPages: makePages('homeschool-laws-by-state', [
+      ['texas-homeschool-startup-checklist', 'Texas Homeschool Startup Checklist', 'compliance', 'Low-regulation startup path and record suggestions.'],
+      ['florida-homeschool-portfolio-checklist', 'Florida Homeschool Portfolio Checklist', 'compliance', 'Portfolio and evaluation planning.'],
+      ['california-homeschool-options', 'California Homeschool Options', 'compliance', 'Compare PSA, charter, PSP, and private options.'],
+      ['pennsylvania-homeschool-portfolio-requirements', 'Pennsylvania Homeschool Portfolio Requirements', 'compliance', 'High-compliance portfolio and evaluation guide.'],
+      ['new-york-homeschool-ihip-guide', 'New York Homeschool IHIP Guide', 'compliance', 'IHIP, quarterly reports, and assessment planning.'],
+      ['ohio-homeschool-notification-checklist', 'Ohio Homeschool Notification Checklist', 'compliance', 'Notification and annual assessment planning.'],
+      ['north-carolina-homeschool-setup', 'North Carolina Homeschool Setup', 'compliance', 'Notice, testing, and recordkeeping overview.'],
+      ['virginia-homeschool-notice-options', 'Virginia Homeschool Notice Options', 'compliance', 'Notice options and evidence of progress.'],
+      ['georgia-homeschool-declaration-guide', 'Georgia Homeschool Declaration Guide', 'compliance', 'Declaration, attendance, and testing rhythm.'],
+      ['illinois-homeschool-requirements', 'Illinois Homeschool Requirements', 'compliance', 'Low-regulation practical records and subjects.'],
+      ['arizona-homeschool-affidavit-checklist', 'Arizona Homeschool Affidavit Checklist', 'compliance', 'Affidavit, birth certificate, and curriculum planning.'],
+      ['washington-homeschool-qualification-guide', 'Washington Homeschool Qualification Guide', 'compliance', 'Parent qualification and annual testing planning.'],
+    ]),
+  },
+  {
+    slug: 'homeschool-styles',
+    path: '/homeschool-styles',
+    title: 'Homeschool Styles',
+    eyebrow: 'Teaching-style hub',
+    description: 'Curriculum guidance by homeschool philosophy and day-to-day teaching style.',
+    primaryCta: { label: 'Find a style match', href: '/quiz' },
+    secondaryCta: { label: 'Compare styles', href: '/guides/classical-vs-charlotte-mason-curriculum' },
+    pillars: ['Classical', 'Charlotte Mason', 'Unit study', 'Traditional', 'Online/self-paced'],
+    supportingPages: makePages('homeschool-styles', [
+      ['classical-homeschool-curriculum-guide', 'Classical Homeschool Curriculum Guide', 'research', 'Classical sequence, rigor, and parent load.'],
+      ['charlotte-mason-curriculum-guide', 'Charlotte Mason Curriculum Guide', 'research', 'Living books, narration, and habit-based planning.'],
+      ['unit-study-homeschool-curriculum-guide', 'Unit Study Homeschool Curriculum Guide', 'research', 'Multi-age teaching and project planning.'],
+      ['traditional-homeschool-curriculum-guide', 'Traditional Homeschool Curriculum Guide', 'research', 'Textbook/workbook fit and school-at-home tradeoffs.'],
+      ['unschooling-curriculum-resources', 'Unschooling Curriculum Resources', 'research', 'Resource-light curriculum choices without forcing a boxed program.'],
+      ['eclectic-homeschool-curriculum-guide', 'Eclectic Homeschool Curriculum Guide', 'research', 'Mix-and-match planning by subject.'],
+      ['montessori-homeschool-curriculum-guide', 'Montessori Homeschool Curriculum Guide', 'research', 'Hands-on and prepared-environment resource choices.'],
+      ['waldorf-homeschool-curriculum-guide', 'Waldorf Homeschool Curriculum Guide', 'research', 'Rhythm, arts, and gentle grade progression.'],
+      ['literature-based-homeschool-style', 'Literature-Based Homeschool Style', 'research', 'Book-heavy learning and discussion.'],
+      ['online-self-paced-homeschool-style', 'Online Self-Paced Homeschool Style', 'research', 'Digital independence and parent oversight.'],
+      ['hybrid-homeschool-curriculum-guide', 'Hybrid Homeschool Curriculum Guide', 'research', 'Combine co-op, online classes, and at-home subjects.'],
+      ['classical-vs-charlotte-mason-curriculum', 'Classical vs Charlotte Mason Curriculum', 'comparison', 'Philosophy-level curriculum decision.'],
+    ]),
+  },
+  {
+    slug: 'learning-needs',
+    path: '/learning-needs',
+    title: 'Learning Needs',
+    eyebrow: 'Learner-fit hub',
+    description: 'Curriculum guides for dyslexia, ADHD, gifted learners, reluctant writers, struggling readers, and sensory needs.',
+    primaryCta: { label: 'Take the fit quiz', href: '/quiz' },
+    secondaryCta: { label: 'See special-needs scores', href: '/tools/curriculum-match-score' },
+    pillars: ['Dyslexia', 'ADHD', 'Gifted learners', 'Struggling readers', 'Writing resistance'],
+    supportingPages: makePages('learning-needs', [
+      ['homeschool-curriculum-for-dyslexia', 'Homeschool Curriculum for Dyslexia', 'buyer', 'Structured literacy and low-shame content subjects.'],
+      ['homeschool-curriculum-for-adhd', 'Homeschool Curriculum for ADHD', 'buyer', 'Short lessons, movement, structure, and flexibility.'],
+      ['homeschool-curriculum-for-gifted-learners', 'Homeschool Curriculum for Gifted Learners', 'buyer', 'Acceleration, depth, and avoiding busywork.'],
+      ['homeschool-curriculum-for-autism', 'Homeschool Curriculum for Autism', 'buyer', 'Predictability, sensory load, and strengths-based planning.'],
+      ['homeschool-curriculum-for-struggling-readers', 'Homeschool Curriculum for Struggling Readers', 'buyer', 'Decouple reading remediation from content learning.'],
+      ['homeschool-curriculum-for-reluctant-writers', 'Homeschool Curriculum for Reluctant Writers', 'buyer', 'Explicit writing systems and oral scaffolding.'],
+      ['homeschool-math-for-struggling-students', 'Homeschool Math for Struggling Students', 'buyer', 'Mastery, manipulatives, and confidence rebuilding.'],
+      ['homeschool-curriculum-for-auditory-learners', 'Homeschool Curriculum for Auditory Learners', 'buyer', 'Read-alouds, audio, discussion, and narration.'],
+      ['homeschool-curriculum-for-visual-learners', 'Homeschool Curriculum for Visual Learners', 'buyer', 'Charts, videos, manipulatives, and visual structure.'],
+      ['homeschool-curriculum-for-kinesthetic-learners', 'Homeschool Curriculum for Kinesthetic Learners', 'buyer', 'Movement, projects, and manipulatives.'],
+      ['homeschool-curriculum-for-executive-function', 'Homeschool Curriculum for Executive Function Support', 'buyer', 'Checklists, routines, parent dashboards, and planning help.'],
+      ['homeschool-curriculum-for-anxiety', 'Homeschool Curriculum for Anxious Learners', 'buyer', 'Predictable pacing, gentle structure, and low-pressure assessments.'],
+    ]),
+  },
+  {
+    slug: 'grade-level-guides',
+    path: '/grade-level-guides',
+    title: 'Grade-Level Guides',
+    eyebrow: 'Age-stage hub',
+    description: 'Curriculum guidance by grade band, from kindergarten foundations to high school transcript planning.',
+    primaryCta: { label: 'Browse grade guides', href: '/grade-level-guides' },
+    secondaryCta: { label: 'Plan a budget', href: '/tools/curriculum-budget-calculator' },
+    pillars: ['Kindergarten', 'Elementary', 'Middle school', 'High school', 'Transcript planning'],
+    supportingPages: makePages('grade-level-guides', [
+      ['kindergarten-homeschool-curriculum-guide', 'Kindergarten Homeschool Curriculum Guide', 'buyer', 'Phonics, number sense, play, and short lessons.'],
+      ['first-grade-homeschool-curriculum-guide', 'First Grade Homeschool Curriculum Guide', 'buyer', 'Reading foundations and gentle math.'],
+      ['second-grade-homeschool-curriculum-guide', 'Second Grade Homeschool Curriculum Guide', 'buyer', 'Fluency, arithmetic, and read-aloud content.'],
+      ['third-grade-homeschool-curriculum-guide', 'Third Grade Homeschool Curriculum Guide', 'buyer', 'Independence, spelling, writing, and multiplication.'],
+      ['fourth-grade-homeschool-curriculum-guide', 'Fourth Grade Homeschool Curriculum Guide', 'buyer', 'Stamina, composition, and upper-elementary content.'],
+      ['fifth-grade-homeschool-curriculum-guide', 'Fifth Grade Homeschool Curriculum Guide', 'buyer', 'Bridge to middle school skills.'],
+      ['middle-school-homeschool-curriculum-guide', 'Middle School Homeschool Curriculum Guide', 'buyer', 'Executive function, writing, and pre-algebra.'],
+      ['sixth-grade-homeschool-curriculum-guide', 'Sixth Grade Homeschool Curriculum Guide', 'buyer', 'Transition into independent assignments.'],
+      ['seventh-grade-homeschool-curriculum-guide', 'Seventh Grade Homeschool Curriculum Guide', 'buyer', 'Writing, pre-algebra/algebra readiness, and study habits.'],
+      ['eighth-grade-homeschool-curriculum-guide', 'Eighth Grade Homeschool Curriculum Guide', 'buyer', 'High school readiness and course planning.'],
+      ['high-school-homeschool-curriculum-guide', 'High School Homeschool Curriculum Guide', 'buyer', 'Credits, rigor, transcripts, and college prep.'],
+      ['ninth-grade-homeschool-curriculum-guide', 'Ninth Grade Homeschool Curriculum Guide', 'buyer', 'First-year high school credit planning.'],
+    ]),
+  },
+  {
+    slug: 'budget-guides',
+    path: '/budget-guides',
+    title: 'Budget Guides',
+    eyebrow: 'Cost-planning hub',
+    description: 'Homeschool curriculum budget guides by number of kids, grade level, style, reusable materials, and hidden costs.',
+    primaryCta: { label: 'Use the budget calculator', href: '/tools/curriculum-budget-calculator' },
+    secondaryCta: { label: 'See affordable picks', href: '/best/affordable-homeschool-curriculum' },
+    pillars: ['Budget-friendly programs', 'Hidden costs', 'Reusable materials', 'Multiple children', 'Premium vs low-cost tradeoffs'],
+    supportingPages: makePages('budget-guides', [
+      ['homeschool-curriculum-budget-calculator', 'Homeschool Curriculum Budget Calculator', 'planning', 'Calculator-led guide for low/mid/premium plans.'],
+      ['affordable-homeschool-curriculum-guide', 'Affordable Homeschool Curriculum Guide', 'buyer', 'Rank good low-cost options by subject.'],
+      ['free-homeschool-curriculum-guide', 'Free Homeschool Curriculum Guide', 'buyer', 'Free plans, library strategy, and where to still pay.'],
+      ['homeschool-curriculum-under-500', 'Homeschool Curriculum Under $500', 'buyer', 'Build a realistic annual plan under $500.'],
+      ['homeschool-curriculum-under-1000', 'Homeschool Curriculum Under $1,000', 'buyer', 'Mid-range plan with paid math/reading.'],
+      ['homeschool-budget-for-two-kids', 'Homeschool Curriculum Budget for Two Kids', 'planning', 'Reusable subjects and sibling sharing.'],
+      ['homeschool-budget-for-large-families', 'Homeschool Curriculum Budget for Large Families', 'planning', 'Multi-age resources and consumable control.'],
+      ['hidden-costs-of-homeschool-curriculum', 'Hidden Costs of Homeschool Curriculum', 'research', 'Supplies, printing, manipulatives, readers, co-ops.'],
+      ['used-homeschool-curriculum-buying-guide', 'Used Homeschool Curriculum Buying Guide', 'planning', 'What to buy used and what to avoid.'],
+      ['homeschool-curriculum-resale-value', 'Homeschool Curriculum Resale Value Guide', 'planning', 'Programs with strong resale and durable books.'],
+      ['premium-homeschool-curriculum-worth-it', 'Is Premium Homeschool Curriculum Worth It?', 'research', 'When premium saves time versus wastes money.'],
+      ['homeschool-subscription-costs', 'Homeschool Subscription Costs Compared', 'comparison', 'Online/monthly subscriptions and annual totals.'],
+    ]),
+  },
+  {
+    slug: 'faith-based-curriculum',
+    path: '/faith-based-curriculum',
+    title: 'Faith-Based Curriculum',
+    eyebrow: 'Worldview hub',
+    description: 'Christian, Catholic, Jewish, and faith-integrated homeschool curriculum decision guides.',
+    primaryCta: { label: 'See Christian picks', href: '/best/christian-homeschool-curriculum' },
+    secondaryCta: { label: 'Compare worldview fit', href: '/tools/curriculum-comparison-matrix' },
+    pillars: ['Christian worldview', 'Catholic classical', 'Bible integration', 'Science worldview', 'Denominational fit'],
+    supportingPages: makePages('faith-based-curriculum', [
+      ['christian-homeschool-curriculum-guide', 'Christian Homeschool Curriculum Guide', 'buyer', 'Worldview depth, academics, and parent load.'],
+      ['catholic-homeschool-curriculum-guide', 'Catholic Homeschool Curriculum Guide', 'buyer', 'Classical Catholic and complete program options.'],
+      ['biblical-worldview-curriculum-guide', 'Biblical Worldview Curriculum Guide', 'research', 'How explicit worldview shows up across subjects.'],
+      ['christian-science-curriculum-comparison', 'Christian Science Curriculum Comparison', 'comparison', 'Apologia, BJU, Abeka, and alternatives.'],
+      ['christian-history-curriculum-guide', 'Christian History Curriculum Guide', 'buyer', 'History programs by worldview and rigor.'],
+      ['christian-language-arts-curriculum-guide', 'Christian Language Arts Curriculum Guide', 'buyer', 'Grammar, literature, writing, and worldview.'],
+      ['christian-math-curriculum-guide', 'Christian Math Curriculum Guide', 'buyer', 'Faith-integrated and neutral math options.'],
+      ['bible-curriculum-for-homeschool', 'Bible Curriculum for Homeschool', 'buyer', 'Standalone Bible, family discipleship, and worldview.'],
+      ['faith-neutral-vs-christian-curriculum', 'Faith-Neutral vs Christian Curriculum', 'comparison', 'Deciding how much worldview integration you want.'],
+      ['young-earth-homeschool-curriculum-guide', 'Young Earth Homeschool Curriculum Guide', 'research', 'Science worldview fit and alternatives.'],
+      ['old-earth-christian-homeschool-curriculum', 'Old Earth Christian Homeschool Curriculum', 'research', 'Finding Christian materials with different science framing.'],
+      ['jewish-homeschool-curriculum-guide', 'Jewish Homeschool Curriculum Guide', 'buyer', 'Core secular/neutral subjects plus Jewish studies planning.'],
+    ]),
+  },
+  {
+    slug: 'secular-curriculum',
+    path: '/secular-curriculum',
+    title: 'Secular Curriculum',
+    eyebrow: 'Worldview hub',
+    description: 'Secular and faith-neutral homeschool curriculum guides for families who want non-religious materials.',
+    primaryCta: { label: 'See secular picks', href: '/best/secular-homeschool-curriculum' },
+    secondaryCta: { label: 'Use the matrix', href: '/tools/curriculum-comparison-matrix' },
+    pillars: ['Fully secular options', 'Faith-neutral options', 'Science curriculum', 'History curriculum', 'Online secular programs'],
+    supportingPages: makePages('secular-curriculum', [
+      ['secular-homeschool-curriculum-guide', 'Secular Homeschool Curriculum Guide', 'buyer', 'Fully secular and neutral options.'],
+      ['secular-science-curriculum-guide', 'Secular Science Curriculum Guide', 'buyer', 'Science options without religious framing.'],
+      ['secular-history-curriculum-guide', 'Secular History Curriculum Guide', 'buyer', 'History/social studies worldview review.'],
+      ['secular-language-arts-curriculum-guide', 'Secular Language Arts Curriculum Guide', 'buyer', 'Reading, writing, grammar, and literature.'],
+      ['secular-math-curriculum-guide', 'Secular Math Curriculum Guide', 'buyer', 'Math options and worldview relevance.'],
+      ['secular-online-homeschool-curriculum', 'Secular Online Homeschool Curriculum', 'buyer', 'Online programs and independence.'],
+      ['faith-neutral-homeschool-curriculum-guide', 'Faith-Neutral Homeschool Curriculum Guide', 'buyer', 'Usable by many families without being fully secular.'],
+      ['oak-meadow-vs-moving-beyond-the-page', 'Oak Meadow vs Moving Beyond the Page', 'comparison', 'Project/gentle secular-ish curriculum comparison.'],
+      ['bookshark-secular-review', 'Is BookShark Secular?', 'research', 'Clarify BookShark worldview and content.'],
+      ['secular-charlotte-mason-curriculum', 'Secular Charlotte Mason Curriculum', 'buyer', 'Living books without religious requirements.'],
+      ['secular-high-school-homeschool-curriculum', 'Secular High School Homeschool Curriculum', 'buyer', 'Credits, labs, and college prep.'],
+      ['secular-homeschool-curriculum-for-dyslexia', 'Secular Homeschool Curriculum for Dyslexia', 'buyer', 'Structured literacy and secular content choices.'],
+    ]),
+  },
+  {
+    slug: 'online-curriculum',
+    path: '/online-curriculum',
+    title: 'Online Curriculum',
+    eyebrow: 'Format hub',
+    description: 'Online homeschool curriculum guides by independence level, grading, parent dashboard, budget, and screen-time tradeoffs.',
+    primaryCta: { label: 'See online picks', href: '/best/online-homeschool-curriculum' },
+    secondaryCta: { label: 'Compare online programs', href: '/compare/time4learning-vs-miacademy' },
+    pillars: ['All-in-one online', 'Online math', 'Automated grading', 'Live classes', 'Self-paced programs'],
+    supportingPages: makePages('online-curriculum', [
+      ['online-homeschool-curriculum-guide', 'Online Homeschool Curriculum Guide', 'buyer', 'All-in-one and subject-specific online options.'],
+      ['online-homeschool-curriculum-with-grading', 'Online Homeschool Curriculum with Grading', 'buyer', 'Automated grading and parent dashboards.'],
+      ['self-paced-online-homeschool-curriculum', 'Self-Paced Online Homeschool Curriculum', 'buyer', 'Independent work and flexible pacing.'],
+      ['online-math-curriculum-guide', 'Online Math Curriculum Guide', 'buyer', 'Teaching Textbooks, CTCMath, and alternatives.'],
+      ['online-high-school-homeschool-curriculum', 'Online High School Homeschool Curriculum', 'buyer', 'Credits, transcripts, and advanced courses.'],
+      ['online-elementary-homeschool-curriculum', 'Online Elementary Homeschool Curriculum', 'buyer', 'Screen-time and parent oversight.'],
+      ['online-homeschool-curriculum-for-working-parents', 'Online Homeschool Curriculum for Working Parents', 'buyer', 'Parent-light plans and check-ins.'],
+      ['time4learning-alternatives', 'Time4Learning Alternatives', 'comparison', 'Compare similar online platforms.'],
+      ['miacademy-alternatives', 'Miacademy Alternatives', 'comparison', 'Online elementary alternatives.'],
+      ['teaching-textbooks-alternatives', 'Teaching Textbooks Alternatives', 'comparison', 'Online math alternatives.'],
+      ['online-curriculum-vs-textbook-curriculum', 'Online Curriculum vs Textbook Curriculum', 'comparison', 'Format-level fit decision.'],
+      ['screen-time-homeschool-curriculum-guide', 'Screen-Time Homeschool Curriculum Guide', 'planning', 'Use online curriculum without losing offline learning.'],
+    ]),
+  },
+  {
+    slug: 'homeschool-planning',
+    path: '/homeschool-planning',
+    title: 'Homeschool Planning',
+    eyebrow: 'Planning hub',
+    description: 'Planning tools for choosing curriculum, building a schedule, creating a budget, and producing a printable homeschool plan.',
+    primaryCta: { label: 'Build a planner PDF', href: '/tools/homeschool-curriculum-planner' },
+    secondaryCta: { label: 'Generate compliance checklist', href: '/tools/state-compliance-checklist' },
+    pillars: ['Curriculum selection', 'Schedules', 'Record keeping', 'Budgeting', 'Printable plans'],
+    supportingPages: makePages('homeschool-planning', [
+      ['how-to-choose-homeschool-curriculum', 'How to Choose Homeschool Curriculum', 'planning', 'Decision framework before buying.'],
+      ['first-year-homeschool-curriculum-plan', 'First-Year Homeschool Curriculum Plan', 'planning', 'Avoid overbuying and schedule burnout.'],
+      ['homeschool-curriculum-planner-pdf', 'Homeschool Curriculum Planner PDF', 'planning', 'Printable lead magnet and planning workflow.'],
+      ['homeschool-schedule-by-curriculum-style', 'Homeschool Schedule by Curriculum Style', 'planning', 'Daily rhythm by program type.'],
+      ['homeschool-record-keeping-guide', 'Homeschool Record Keeping Guide', 'planning', 'Practical records for compliance and transcripts.'],
+      ['homeschool-subject-planning-guide', 'Homeschool Subject Planning Guide', 'planning', 'Choose math, reading, writing, science, and history.'],
+      ['homeschool-curriculum-sample-week', 'Homeschool Curriculum Sample Week', 'planning', 'What a realistic week looks like.'],
+      ['homeschool-curriculum-shopping-checklist', 'Homeschool Curriculum Shopping Checklist', 'planning', 'What to verify before purchase.'],
+      ['homeschool-midyear-curriculum-switch', 'How to Switch Homeschool Curriculum Midyear', 'planning', 'Diagnose poor fit and switch without panic.'],
+      ['homeschool-curriculum-decision-matrix', 'Homeschool Curriculum Decision Matrix', 'planning', 'Use scorecards instead of vibe-based buying.'],
+      ['homeschool-transcript-planning-guide', 'Homeschool Transcript Planning Guide', 'planning', 'High school credits and records.'],
+      ['homeschool-year-end-review', 'Homeschool Year-End Curriculum Review', 'planning', 'Evaluate what worked before buying next year.'],
+    ]),
+  },
+]
+
+export const allSupportingPages = topicHubs.flatMap((hub) =>
+  hub.supportingPages.map((page) => ({ ...page, hubSlug: hub.slug, hubTitle: hub.title, hubPath: hub.path }))
+)
+
+export function getTopicHubBySlug(slug: string) {
+  return topicHubs.find((hub) => hub.slug === slug)
+}
+
+export function getTopicHubByPath(path: string) {
+  return topicHubs.find((hub) => hub.path === path)
+}
+
+export function getSupportingPageBySlug(slug: string) {
+  return allSupportingPages.find((page) => page.slug === slug)
+}
