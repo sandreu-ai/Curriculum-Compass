@@ -180,6 +180,68 @@ export const comparisons: ComparisonPage[] = [
       { question: 'Is Memoria Press too rigorous?', answer: 'It can be academically demanding. Families should pace carefully and adapt when needed.' },
     ],
   },
+
+  {
+    slug: 'sonlight-vs-bookshark',
+    title: 'Sonlight vs BookShark: Christian or Secular Literature-Based Homeschool?',
+    intro: 'Sonlight and BookShark share a literature-rich, read-aloud-heavy style, but they serve different worldview needs. This comparison helps parents decide between Christian and secular-friendly book-based homeschool plans.',
+    curriculumA: 'sonlight',
+    curriculumB: 'bookshark',
+    verdict: 'Choose Sonlight if you want explicitly Christian literature-rich homeschool plans. Choose BookShark if you like the same read-aloud approach but need a secular or faith-neutral option.',
+    bestForA: ['Christian families wanting Bible and worldview included', 'Parents who love read-alouds and discussion', 'Families who want planned history and literature together'],
+    bestForB: ['Secular or faith-neutral families', 'Parents who want literature-based learning without Bible integration', 'Students who thrive through stories and discussion'],
+    keyDifferences: ['Sonlight is Christian; BookShark is secular-friendly.', 'Both are parent-intensive and reading-heavy.', 'Both often need separate math and skill-subject planning.'],
+    faqs: [
+      { question: 'Is BookShark the secular version of Sonlight?', answer: 'BookShark is commonly considered the secular-friendly sibling to Sonlight, though families should still review samples and book choices for fit.' },
+      { question: 'Which is easier for new homeschoolers?', answer: 'Both provide instructor guides, but both require substantial reading time. The easier choice is usually the one that better matches the family worldview.' },
+    ],
+  },
+  {
+    slug: 'time4learning-vs-miacademy',
+    title: 'Time4Learning vs Miacademy: Online Homeschool Curriculum Compared',
+    intro: 'Time4Learning and Miacademy are both online homeschool options for families wanting digital lessons and parent tracking. The best choice depends on age range, interface fit, and how much offline work you plan to add.',
+    curriculumA: 'time4learning',
+    curriculumB: 'miacademy',
+    verdict: 'Choose Time4Learning for broader K–12 online coverage. Choose Miacademy for interactive elementary and middle school lessons with a student-friendly platform feel.',
+    bestForA: ['Families wanting K–12 online coverage', 'Parents needing multi-subject lesson flow', 'Students who work well with screen-based assignments'],
+    bestForB: ['Elementary and middle school students', 'Families wanting interactive online practice', 'Parents who value dashboards and flexible pacing'],
+    keyDifferences: ['Time4Learning has broader grade coverage.', 'Miacademy is especially focused on K–8 online learning.', 'Both still require parent oversight and state compliance records.'],
+    faqs: [
+      { question: 'Can either program be my full homeschool curriculum?', answer: 'Some families use online programs as a core, but parents remain responsible for state compliance, mastery checks, reading, writing, and offline learning balance.' },
+      { question: 'Which is better for independent learners?', answer: 'Both can support independence. The better fit depends on which lesson format your child will use consistently.' },
+    ],
+  },
+  {
+    slug: 'teaching-textbooks-vs-ctcmath',
+    title: 'Teaching Textbooks vs CTCMath: Online Homeschool Math Compared',
+    intro: 'Teaching Textbooks and CTCMath both help parents outsource math explanations and grading. This comparison focuses on lesson style, cost, independence, and parent tracking.',
+    curriculumA: 'teaching-textbooks',
+    curriculumB: 'ctcmath',
+    verdict: 'Choose Teaching Textbooks if your child likes a friendly guided math program. Choose CTCMath if you want short video lessons, broad math coverage, and budget-friendly family pricing.',
+    bestForA: ['Students who need gentle step-by-step math help', 'Families wanting automated grading', 'Parents supplementing a broader curriculum'],
+    bestForB: ['Families with multiple math students', 'Students who like short video explanations', 'Parents wanting online math tracking at a lower annual cost'],
+    keyDifferences: ['Both are math-only programs.', 'CTCMath often appeals to families comparing family pricing.', 'Teaching Textbooks has a distinctive guided lesson style many homeschoolers know well.'],
+    faqs: [
+      { question: 'Can Teaching Textbooks or CTCMath count as homeschool math?', answer: 'Usually yes as curriculum choices, but parents should verify state requirements and keep records of completion and scores.' },
+      { question: 'Which is better for struggling math students?', answer: 'Try placement tests and samples. Some students prefer Teaching Textbooks’ guided style; others prefer CTCMath’s short video-and-practice rhythm.' },
+    ],
+  },
+  {
+    slug: 'all-about-reading-vs-logic-of-english',
+    title: 'All About Reading vs Logic of English: Structured Phonics Compared',
+    intro: 'All About Reading and Logic of English are both popular with families who want explicit, multisensory reading instruction. The difference is usually scripted reading support versus a broader structured-literacy system.',
+    curriculumA: 'all-about-reading',
+    curriculumB: 'logic-of-english',
+    verdict: 'Choose All About Reading for a highly scripted reading path. Choose Logic of English for a broader phonograms, spelling, handwriting, and language system.',
+    bestForA: ['Parents wanting open-and-go reading lessons', 'Beginning or struggling readers', 'Families who want reading separated from spelling decisions'],
+    bestForB: ['Families wanting integrated reading and spelling rules', 'Students who benefit from explicit phonogram instruction', 'Parents willing to learn a fuller structured-literacy method'],
+    keyDifferences: ['All About Reading is more reading-specific.', 'Logic of English integrates more spelling and language rules.', 'Both are multisensory and often considered by dyslexia-focused families.'],
+    faqs: [
+      { question: 'Which is better for dyslexia?', answer: 'Both can be strong options. The better fit depends on parent teaching style, student age, and whether you want a scripted reading path or a broader language system.' },
+      { question: 'Do I need a separate spelling program?', answer: 'With All About Reading, many families add All About Spelling. Logic of English includes more spelling-rule instruction inside the broader system.' },
+    ],
+  },
+
 ]
 
 export function getComparisonBySlug(slug: string): ComparisonPage | undefined {

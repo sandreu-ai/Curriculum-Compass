@@ -1,4 +1,5 @@
 import { curricula } from './curricula'
+import { stateLaws } from './stateLaws'
 import type { Curriculum } from '@/types'
 
 export interface BestPage {
@@ -171,8 +172,46 @@ export const bestPages: BestPage[] = [
   },
 ]
 
+
+const stateCurriculumIdsByLevel: Record<string, string[]> = {
+  low: ['good-and-beautiful', 'masterbooks', 'ambleside-online', 'time4learning', 'teaching-textbooks', 'sonlight'],
+  medium: ['bju-press', 'sonlight', 'calvert-education', 'teaching-textbooks', 'notgrass-history', 'iew'],
+  high: ['bju-press', 'kolbe-academy', 'calvert-education', 'memoria-press', 'apologia', 'teaching-textbooks'],
+}
+
+export const stateBestPages: BestPage[] = stateLaws.map((state) => {
+  const slug = `${state.state.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-homeschool-curriculum`
+  const complianceNeeds = [
+    state.noticeRequired ? 'notice filing reminders' : 'low-paperwork flexibility',
+    state.portfolioRequired ? 'portfolio-friendly assignments' : 'simple record keeping',
+    state.assessmentRequired ? 'assessment-ready progress tracking' : 'parent-directed pacing',
+  ]
+
+  return {
+    slug,
+    title: `Best Homeschool Curriculum for ${state.state} Families`,
+    description: `Curriculum options for ${state.state} homeschool families, matched to ${state.requirementLevel}-regulation requirements, parent workload, record keeping, and grade coverage.`,
+    audience: `${state.state} parents who want curriculum that fits their child while making the state's notice, portfolio, assessment, and record-keeping expectations easier to manage.`,
+    criteria: ['Fits the state compliance workload', ...complianceNeeds, 'Clear daily lesson flow', 'Strong core academics'],
+    curriculumIds: stateCurriculumIdsByLevel[state.requirementLevel] ?? stateCurriculumIdsByLevel.medium,
+    buyingAdvice: `${state.state} families should choose curriculum for the child first, then check whether the program makes compliance easier. ${state.requirements} Use the state law guide as a starting checklist and verify current rules with the official state source before filing.`,
+    faqs: [
+      {
+        question: `What homeschool curriculum is best for ${state.state}?`,
+        answer: `The best choice depends on your child's needs and your parent bandwidth. In ${state.state}, prioritize curriculum that supports ${complianceNeeds.join(', ')} while still fitting your budget and teaching style.`,
+      },
+      {
+        question: `Does ${state.state} approve or require a specific homeschool curriculum?`,
+        answer: `${state.state} curriculum rules are usually about required subjects, records, notice, or evaluation rather than forcing one publisher. Always verify current details with the official source before purchasing or filing.`,
+      },
+    ],
+  }
+})
+
+export const allBestPages: BestPage[] = [...bestPages, ...stateBestPages]
+
 export function getBestPageBySlug(slug: string): BestPage | undefined {
-  return bestPages.find((page) => page.slug === slug)
+  return allBestPages.find((page) => page.slug === slug)
 }
 
 export function getBestPageCurricula(page: BestPage): Curriculum[] {

@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next'
 import { curricula } from '@/data/curricula'
 import { comparisons } from '@/data/comparisons'
-import { bestPages } from '@/data/bestPages'
+import { allBestPages } from '@/data/bestPages'
 import { getAllPosts } from '@/lib/blog'
+import { stateLaws } from '@/data/stateLaws'
 import { SITE_URL } from '@/lib/siteConfig'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/directory`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${SITE_URL}/best`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${SITE_URL}/homeschool-laws`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
   ]
 
@@ -31,7 +33,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  const bestForRoutes: MetadataRoute.Sitemap = bestPages.map((page) => ({
+  const stateLawRoutes: MetadataRoute.Sitemap = stateLaws.map((state) => ({
+    url: `${SITE_URL}/homeschool-laws/${state.state.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
+    lastModified: state.lastVerified ? new Date(state.lastVerified) : now,
+    changeFrequency: 'monthly',
+    priority: 0.78,
+  }))
+
+  const bestForRoutes: MetadataRoute.Sitemap = allBestPages.map((page) => ({
     url: `${SITE_URL}/best/${page.slug}`,
     lastModified: now,
     changeFrequency: 'monthly',
@@ -45,5 +54,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticRoutes, ...curriculumRoutes, ...comparisonRoutes, ...bestForRoutes, ...blogRoutes]
+  return [...staticRoutes, ...curriculumRoutes, ...comparisonRoutes, ...bestForRoutes, ...stateLawRoutes, ...blogRoutes]
 }

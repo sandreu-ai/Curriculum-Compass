@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import CurriculumCard from '@/components/CurriculumCard'
-import { bestPages, getBestPageBySlug, getBestPageCurricula } from '@/data/bestPages'
+import { allBestPages, getBestPageBySlug, getBestPageCurricula } from '@/data/bestPages'
 import { SITE_NAME, SITE_URL } from '@/lib/siteConfig'
 
 interface PageProps { params: { slug: string } }
 
 export async function generateStaticParams() {
-  return bestPages.map((page) => ({ slug: page.slug }))
+  return allBestPages.map((page) => ({ slug: page.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

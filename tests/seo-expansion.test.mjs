@@ -31,7 +31,15 @@ test('step 2 comparison page system: top comparison pages exist and are indexed'
   const comparisons = read('src/data/comparisons.ts')
   const count = (comparisons.match(/slug:/g) ?? []).length
   assert.ok(count >= 10, `expected at least 10 comparison pages, found ${count}`)
-  for (const slug of ['abeka-vs-bju-press', 'math-u-see-vs-saxon-math', 'good-and-beautiful-vs-masterbooks']) {
+  for (const slug of [
+    'abeka-vs-bju-press',
+    'math-u-see-vs-saxon-math',
+    'good-and-beautiful-vs-masterbooks',
+    'sonlight-vs-bookshark',
+    'time4learning-vs-miacademy',
+    'teaching-textbooks-vs-ctcmath',
+    'all-about-reading-vs-logic-of-english',
+  ]) {
     assert.match(comparisons, new RegExp(slug), `missing ${slug}`)
   }
 
@@ -63,6 +71,29 @@ test('step 3 best-for landing pages exist and are indexed', () => {
 
   const sitemap = read('src/app/sitemap.ts')
   assert.match(sitemap, /bestForRoutes/, 'sitemap should include best-for routes')
+  assert.match(bestPages, /stateBestPages/, 'state-specific best curriculum pages should be generated')
+  assert.match(bestPages, /-homeschool-curriculum/, 'state-specific best curriculum slugs should be generated')
+})
+
+test('step 3b state law pages exist, connect to curriculum guides, and are indexed', () => {
+  assert.equal(exists('src/app/homeschool-laws/page.tsx'), true, 'state law hub should exist')
+  assert.equal(exists('src/app/homeschool-laws/[slug]/page.tsx'), true, 'dynamic state law route should exist')
+
+  const statePage = read('src/app/homeschool-laws/[slug]/page.tsx')
+  assert.match(statePage, /Compliance checklist/i, 'state pages should include a compliance checklist')
+  assert.match(statePage, /See curriculum picks/, 'state law pages should link to state curriculum recommendations')
+  assert.match(statePage, /FAQPage/, 'state law pages should include FAQ schema')
+
+  const sitemap = read('src/app/sitemap.ts')
+  assert.match(sitemap, /stateLawRoutes/, 'sitemap should include state law routes')
+  assert.match(sitemap, /homeschool-laws/, 'sitemap should include homeschool-laws URLs')
+})
+
+test('step 3c missing high-intent comparison entities are real curriculum profiles', () => {
+  const curricula = read('src/data/curricula.ts')
+  for (const id of ['bookshark', 'miacademy', 'ctcmath', 'logic-of-english']) {
+    assert.match(curricula, new RegExp(`id: '${id}'`), `missing curriculum profile ${id}`)
+  }
 })
 
 test('step 4 curriculum review template is substantially expanded', () => {
