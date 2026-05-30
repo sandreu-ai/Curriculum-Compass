@@ -2,6 +2,13 @@
 
 This site now has the technical and content foundation for a Search Console feedback loop: sitemap coverage, comparison pages, best-fit guides, expanded curriculum reviews, and clearer page metadata.
 
+## Audit status — 2026-05-29
+
+- Repo/source verified: `/home/sandreu/Curriculum-compass`, remote `sandreu-ai/Curriculum-Compass`, HEAD `37cf587` (`feat: add curriculum topical map and decision tools`).
+- Safe local checks passed: `npm test` (10/10 passing) and `npm run build` (Next.js production build succeeded, 350 static pages generated).
+- Remaining access gates: Zoho webmail must be checked in the browser for affiliate replies/approvals because local IMAP/Himalaya access is not verified; Google Search Console sitemap/indexing state must be checked in GSC before claiming pages are indexed or requesting indexing.
+- Do not infer affiliate approval, mailbox state, or GSC indexing from the local build alone.
+
 ## Sitemap to submit
 
 Submit this sitemap in Google Search Console:
