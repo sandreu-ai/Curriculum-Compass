@@ -119,3 +119,39 @@ test('step 5 search console iteration workflow is documented and ready', () => {
   assert.match(doc, /impressions/i)
   assert.match(doc, /CTR/i)
 })
+
+
+test('technical SEO hardening: canonical redirects, guide noindex, deterministic sitemap, schema, and nav', () => {
+  const siteConfig = read('src/lib/siteConfig.ts')
+  assert.match(siteConfig, /SITE_URL = 'https:\/\/www\.thecurriculumcompass\.com'/, 'canonical domain should stay consistent')
+  assert.match(siteConfig, /SITE_LAST_UPDATED/, 'site config should expose deterministic sitemap date')
+
+  const nextConfig = read('next.config.js')
+  assert.match(nextConfig, /REDIRECT_HOSTS/, 'alternate hosts should redirect to canonical')
+  assert.match(nextConfig, /curriculumcompass\.com/, 'curriculumcompass.com should be handled as an alternate host')
+  assert.match(nextConfig, /www\.thecurriculumcompass\.com/, 'canonical host should be explicit')
+
+  const guides = read('src/app/guides/[slug]/page.tsx')
+  assert.match(guides, /robots:\s*{\s*index:\s*false,\s*follow:\s*true\s*}/, 'thin guide briefs should be noindexed')
+
+  const sitemap = read('src/app/sitemap.ts')
+  assert.match(sitemap, /SITE_LAST_UPDATED/, 'sitemap should use deterministic site dates')
+  assert.doesNotMatch(sitemap, /supportingGuideRoutes/, 'thin guide briefs should not be included in sitemap')
+  assert.doesNotMatch(sitemap, /allSupportingPages/, 'sitemap should not import supporting guide briefs')
+
+  const curriculum = read('src/app/curriculum/[id]/page.tsx')
+  assert.match(curriculum, /sameAs:\s*curriculum\.websiteUrl/, 'Product schema should use sameAs for publisher URL')
+  assert.match(curriculum, /'@type': 'Review'/, 'Curriculum pages should include editorial Review schema')
+
+  const best = read('src/app/best/[slug]/page.tsx')
+  assert.match(best, /'@type': 'ItemList'/, 'Best pages should expose top picks as ItemList schema')
+
+  const compare = read('src/app/compare/[slug]/page.tsx')
+  assert.match(compare, /'@type': 'Article'/, 'Comparison pages should include Article schema')
+
+  const nav = read('src/components/NavBar.tsx')
+  assert.match(nav, /href: '\/best'/, 'Nav should link to best-fit SEO hub')
+  assert.match(nav, /href: '\/compare'/, 'Nav should link to comparison SEO hub')
+  assert.match(nav, /href: '\/homeschool-laws'/, 'Nav should link directly to state-law SEO hub')
+  assert.doesNotMatch(nav, /directory#state-laws/, 'Main nav should not hide state laws behind a directory anchor')
+})

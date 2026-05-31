@@ -15,7 +15,7 @@ import {
   getReviewDateLabel,
   getTypicalDay,
 } from '@/lib/curriculumSeo'
-import { SITE_URL } from '@/lib/siteConfig'
+import { SITE_NAME, SITE_URL } from '@/lib/siteConfig'
 
 interface PageProps {
   params: { id: string }
@@ -59,7 +59,8 @@ export default function CurriculumDetailPage({ params }: PageProps) {
     '@type': 'Product',
     name: curriculum.name,
     description: curriculum.description,
-    url: curriculum.websiteUrl,
+    url: `${SITE_URL}/curriculum/${curriculum.id}`,
+    sameAs: curriculum.websiteUrl,
     brand: { '@type': 'Brand', name: curriculum.name },
     category: `Homeschool Curriculum — ${curriculum.approach}`,
     offers: {
@@ -68,6 +69,15 @@ export default function CurriculumDetailPage({ params }: PageProps) {
       highPrice: curriculum.price.high,
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
+    },
+    review: {
+      '@type': 'Review',
+      name: `${curriculum.name} Homeschool Curriculum Review`,
+      author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+      publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+      datePublished: curriculum.lastVerified,
+      dateModified: curriculum.lastVerified,
+      reviewBody: buildCurriculumMetaDescription(curriculum),
     },
   }
 

@@ -66,6 +66,17 @@ export default function ComparisonPage({ params }: PageProps) {
     mainEntity: comparison.faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })),
   }
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: comparison.title,
+    description: `Compare ${a.name} vs ${b.name}: cost, grade range, faith fit, parent prep, pros, cons, and which homeschool families each curriculum fits best.`,
+    mainEntityOfPage: `${SITE_URL}/compare/${comparison.slug}`,
+    author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    about: [`${a.name} review`, `${b.name} review`, 'homeschool curriculum comparison'],
+  }
+
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -79,6 +90,7 @@ export default function ComparisonPage({ params }: PageProps) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <article className="bg-cream min-h-screen">
         <header className="bg-forest-dark text-white px-4 py-12 sm:px-6">

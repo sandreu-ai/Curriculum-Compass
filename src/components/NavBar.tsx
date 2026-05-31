@@ -9,9 +9,10 @@ import OurSitesDropdown from './OurSitesDropdown'
 
 const links = [
   { href: '/quiz', label: 'Take the Quiz' },
-  { href: '/directory', label: 'Browse All' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/directory#state-laws', label: 'State Laws' },
+  { href: '/best', label: 'Best Picks' },
+  { href: '/compare', label: 'Compare' },
+  { href: '/directory', label: 'Directory' },
+  { href: '/homeschool-laws', label: 'State Laws' },
 ]
 
 export default function NavBar() {

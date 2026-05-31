@@ -43,10 +43,23 @@ export default function BestPage({ params }: PageProps) {
     isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
   }
 
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: page.title,
+    itemListElement: selectedCurricula.map((curriculum, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: curriculum.name,
+      url: `${SITE_URL}/curriculum/${curriculum.id}`,
+    })),
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <article className="bg-cream min-h-screen">
         <header className="bg-forest-dark px-4 py-12 text-white sm:px-6">
           <div className="mx-auto max-w-5xl">

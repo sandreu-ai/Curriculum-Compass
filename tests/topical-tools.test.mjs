@@ -48,11 +48,11 @@ test('original data and tool pages exist', () => {
   }
 })
 
-test('sitemap indexes topical hubs, supporting guides, and tools', () => {
+test('sitemap indexes topical hubs and tools while keeping thin guide briefs out of sitemap', () => {
   const sitemap = read('src/app/sitemap.ts')
   assert.match(sitemap, /topicHubRoutes/)
-  assert.match(sitemap, /supportingGuideRoutes/)
-  assert.match(sitemap, /allSupportingPages/)
+  assert.doesNotMatch(sitemap, /supportingGuideRoutes/)
+  assert.doesNotMatch(sitemap, /allSupportingPages/)
   assert.match(sitemap, /curriculum-comparison-matrix/)
   assert.match(sitemap, /state-compliance-checklist/)
   assert.match(sitemap, /homeschool-curriculum-planner/)
