@@ -25,6 +25,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/tools/curriculum-budget-calculator`, lastModified: siteLastUpdated, changeFrequency: 'monthly', priority: 0.84 },
     { url: `${SITE_URL}/tools/homeschool-curriculum-planner`, lastModified: siteLastUpdated, changeFrequency: 'monthly', priority: 0.84 },
     { url: `${SITE_URL}/blog`, lastModified: siteLastUpdated, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/privacy`, lastModified: siteLastUpdated, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/terms`, lastModified: siteLastUpdated, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/affiliate-disclosure`, lastModified: siteLastUpdated, changeFrequency: 'yearly', priority: 0.4 },
   ]
 
   const curriculumRoutes: MetadataRoute.Sitemap = curricula.map((c) => ({

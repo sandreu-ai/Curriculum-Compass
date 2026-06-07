@@ -15,6 +15,12 @@ const footerLinks = [
   { href: '/directory', label: 'Browse All Curricula' },
 ]
 
+const legalLinks = [
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
+  { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },
+]
+
 const colVariants = {
   hidden: { opacity: 0, y: 16 },
   show: (i: number) => ({
@@ -94,6 +100,18 @@ export default function Footer() {
               This site may earn affiliate commissions when you purchase curricula through our links —
               at no cost to you.
             </p>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+              {legalLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="font-body text-xs text-green-300 underline-offset-4 hover:text-white hover:underline transition-colors duration-200"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
 

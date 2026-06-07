@@ -189,7 +189,7 @@ export default function ResultsClient() {
                       <p className="font-body text-gray-600 mb-5">
                         Enter your email to see match{rest.length > 1 ? 'es' : ''} #2
                         {rest.length > 1 ? ` and #${rest.length + 1}` : ''} — plus we&apos;ll send
-                        all your results so you can come back to them later.
+                        your results, save your quiz tags, and follow up with a short planning sequence.
                       </p>
 
                       <form onSubmit={handleUnlock} className="space-y-3">
@@ -218,7 +218,7 @@ export default function ResultsClient() {
                         <p className="font-body text-sm text-red-600 mt-3">{gateError}</p>
                       )}
                       <p className="font-body text-xs text-gray-400 mt-4">
-                        No spam — just your results. Unsubscribe anytime.
+                        No spam — your results plus a few practical planning emails. Unsubscribe anytime.
                       </p>
                     </div>
                   </motion.div>

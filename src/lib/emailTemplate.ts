@@ -1,3 +1,4 @@
+import type { LeadSegments } from '@/lib/leadSegmentation'
 import type { ScoredCurriculum } from '@/types'
 
 interface EmailTemplateOptions {
@@ -174,4 +175,122 @@ Browse all 40+ curricula: ${siteUrl}/directory
 `
 
   return { html, text }
+}
+
+interface FollowUpEmailOptions {
+  matches: ScoredCurriculum[]
+  segments: LeadSegments
+  siteUrl: string
+}
+
+interface FollowUpEmail {
+  subject: string
+  html: string
+  text: string
+  scheduledAt: string
+  sequence: string
+}
+
+function daysFromNow(days: number): string {
+  const date = new Date()
+  date.setDate(date.getDate() + days)
+  return date.toISOString()
+}
+
+function buildSimpleEmail({
+  title,
+  intro,
+  bullets,
+  ctaLabel,
+  ctaUrl,
+}: {
+  title: string
+  intro: string
+  bullets: string[]
+  ctaLabel: string
+  ctaUrl: string
+}): { html: string; text: string } {
+  const bulletHtml = bullets
+    .map((bullet) => `<li style="margin:8px 0;color:#374151;font-size:14px;line-height:1.55;">${escapeHtml(bullet)}</li>`)
+    .join('')
+
+  const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#fdfcf8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#fdfcf8;">
+    <tr><td align="center" style="padding:32px 16px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;background:#ffffff;border:1px solid #ede8dc;border-radius:18px;overflow:hidden;">
+        <tr><td style="background:#1f6a4f;color:#ffffff;padding:26px 24px;">
+          <p style="margin:0 0 8px 0;font-family:Georgia,serif;color:#bbf7d0;font-size:15px;">The Curriculum Compass</p>
+          <h1 style="margin:0;font-family:Georgia,serif;color:#ffffff;font-size:25px;line-height:1.3;">${escapeHtml(title)}</h1>
+        </td></tr>
+        <tr><td style="padding:24px;">
+          <p style="margin:0 0 16px 0;color:#374151;font-size:15px;line-height:1.65;">${escapeHtml(intro)}</p>
+          <ul style="margin:0 0 22px 0;padding-left:20px;">${bulletHtml}</ul>
+          <a href="${escapeHtml(ctaUrl)}" style="display:inline-block;background:#1f6a4f;color:#fdfcf8;text-decoration:none;padding:11px 22px;border-radius:10px;font-weight:bold;font-size:14px;">${escapeHtml(ctaLabel)} →</a>
+        </td></tr>
+        <tr><td style="padding:0 24px 24px 24px;color:#9ca3af;font-size:12px;line-height:1.5;">
+          You're receiving this because you requested homeschool curriculum quiz results from The Curriculum Compass. You can unsubscribe or ask to be removed anytime.
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`
+
+  const text = `${title}\n\n${intro}\n\n${bullets.map((bullet) => `- ${bullet}`).join('\n')}\n\n${ctaLabel}: ${ctaUrl}\n\n— The Curriculum Compass`
+
+  return { html, text }
+}
+
+export function buildFollowUpEmails({ matches, segments, siteUrl }: FollowUpEmailOptions): FollowUpEmail[] {
+  const topMatch = matches[0]?.curriculum.name ?? segments.topMatch
+  const budgetGuide = `${siteUrl}/budget-guides`
+  const toolsGuide = `${siteUrl}/tools`
+
+  const day1 = buildSimpleEmail({
+    title: `How to sanity-check ${topMatch}`,
+    intro: `Your quiz result is a strong starting point, but the next step is to confirm fit before buying anything. Use this quick filter to avoid expensive curriculum regret.`,
+    bullets: [
+      `Download or preview a sample lesson and ask: would a normal Tuesday with this feel realistic?`,
+      `Check whether the teacher guide expects more parent prep than your family can sustain.`,
+      `Compare the curriculum's worldview, grade range, and learning style against your quiz tags: ${segments.worldview}, ${segments.gradeRange}, ${segments.learningNeeds.join(', ')}.`,
+      `Before purchasing, verify current pricing, refunds, and required materials directly on the publisher site.`,
+    ],
+    ctaLabel: 'Browse the full curriculum directory',
+    ctaUrl: `${siteUrl}/directory`,
+  })
+
+  const day3 = buildSimpleEmail({
+    title: 'Budget check before you buy curriculum',
+    intro: `Curriculum cost is more than the sticker price. Books, manipulatives, subscriptions, printing, and replacement workbooks can change the real annual number.`,
+    bullets: [
+      `Your quiz budget segment: ${segments.budget}. Use that as a ceiling, not a target.`,
+      `Separate reusable teacher materials from consumable student workbooks.`,
+      `Price the top match against at least two alternatives before committing.`,
+      `Avoid buying a full-year bundle until you have reviewed samples and placement guidance.`,
+    ],
+    ctaLabel: 'Use the budget guides',
+    ctaUrl: budgetGuide,
+  })
+
+  const day7 = buildSimpleEmail({
+    title: 'Final fit checklist for your homeschool plan',
+    intro: `Before you settle on a curriculum, run one final pass across worldview, state requirements, workload, and child fit.`,
+    bullets: [
+      `Confirm whether your family wants a faith-based, secular, or neutral curriculum path.`,
+      `Check your state law page for notices, portfolios, assessments, or recordkeeping expectations.`,
+      `Use comparison tools to separate "good curriculum" from "good fit for this child this year."`,
+      `If you are unsure, choose the lowest-risk trial path: samples, placement tests, used books, or monthly subscription before a full-year purchase.`,
+    ],
+    ctaLabel: 'Open the planning tools',
+    ctaUrl: toolsGuide,
+  })
+
+  return [
+    { ...day1, subject: `Next step for your ${topMatch} result`, scheduledAt: daysFromNow(1), sequence: 'day-1-sanity-check' },
+    { ...day3, subject: 'Curriculum budget check before you buy', scheduledAt: daysFromNow(3), sequence: 'day-3-budget-check' },
+    { ...day7, subject: 'Your final homeschool curriculum fit checklist', scheduledAt: daysFromNow(7), sequence: 'day-7-fit-checklist' },
+  ]
 }
