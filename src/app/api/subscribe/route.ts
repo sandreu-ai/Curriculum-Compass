@@ -9,6 +9,125 @@ export const runtime = 'nodejs'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+function parseCsvEnv(value?: string): string[] {
+  return (value ?? '')
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean)
+}
+
+function buildContactPayload({
+  email,
+  properties,
+  audienceId,
+  segmentIds,
+  topicId,
+}: {
+  email: string
+  properties: Record<string, string | number | null>
+  audienceId?: string
+  segmentIds: string[]
+  topicId?: string
+}) {
+  return {
+    ...(audienceId && segmentIds.length === 0 ? { audienceId } : {}),
+    email,
+    unsubscribed: false,
+    properties,
+    ...(segmentIds.length ? { segments: segmentIds.map((id) => ({ id })) } : {}),
+    ...(topicId ? { topics: [{ id: topicId, subscription: 'opt_in' as const }] } : {}),
+  }
+}
+
+async function upsertContact({
+  resend,
+  email,
+  properties,
+  audienceId,
+  segmentIds,
+  topicId,
+}: {
+  resend: Resend
+  email: string
+  properties: Record<string, string | number | null>
+  audienceId?: string
+  segmentIds: string[]
+  topicId?: string
+}): Promise<{ id: string | null; created: boolean }> {
+  const createPayload = buildContactPayload({ email, properties, audienceId, segmentIds, topicId })
+  const created = await resend.contacts.create(createPayload)
+
+  if (!created.error) {
+    return { id: created.data?.id ?? null, created: true }
+  }
+
+  // Most repeat quiz-takers fail create because the contact already exists. Updating by email
+  // keeps tags/properties fresh without requiring IMAP or mailbox access.
+  const updated = await resend.contacts.update({
+    ...(audienceId && segmentIds.length === 0 ? { audienceId } : {}),
+    email,
+    unsubscribed: false,
+    properties,
+  })
+
+  if (updated.error) {
+    console.error('Resend contact upsert error:', {
+      createMessage: created.error.message,
+      updateMessage: updated.error.message,
+    })
+    throw new Error('contact_upsert_failed')
+  }
+
+  // The create payload can add segments/topics for new contacts. For existing contacts, add
+  // configured segments/topics explicitly so Resend has durable lead buckets beyond email tags.
+  await Promise.allSettled([
+    ...segmentIds.map((segmentId) => resend.contacts.segments.add({ email, segmentId })),
+    ...(topicId ? [resend.contacts.topics.update({ email, topics: [{ id: topicId, subscription: 'opt_in' }] })] : []),
+  ])
+
+  return { id: updated.data?.id ?? null, created: false }
+}
+
+async function sendLeadNotification({
+  resend,
+  fromEmail,
+  notificationEmail,
+  email,
+  properties,
+}: {
+  resend: Resend
+  fromEmail: string
+  notificationEmail?: string
+  email: string
+  properties: Record<string, string | number | null>
+}) {
+  if (!notificationEmail || !EMAIL_REGEX.test(notificationEmail)) return
+
+  const summary = [
+    `New Curriculum Compass quiz lead: ${email}`,
+    '',
+    `Top match: ${properties.top_match ?? 'unknown'}`,
+    `Worldview: ${properties.worldview ?? 'unknown'}`,
+    `Budget: ${properties.budget ?? 'unknown'}`,
+    `Grade range: ${properties.grade_range ?? 'unknown'}`,
+    `Learning needs: ${properties.learning_needs ?? 'unknown'}`,
+    '',
+    'Lead is stored in Resend contacts. This notification is intentionally minimized; use Resend for the full contact record/properties.',
+  ].join('\n')
+
+  const result = await resend.emails.send({
+    from: `The Curriculum Compass <${fromEmail}>`,
+    to: notificationEmail,
+    subject: `New quiz lead: ${properties.top_match ?? 'Curriculum Compass'}`,
+    text: summary,
+    tags: [{ name: 'notification', value: 'quiz-lead' }],
+  })
+
+  if (result.error) {
+    console.error('Resend lead notification error:', result.error.message)
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -42,6 +161,10 @@ export async function POST(request: Request) {
     const apiKey = process.env.RESEND_API_KEY
     const fromEmail = process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev'
     const siteUrl = process.env.SITE_URL ?? 'https://thecurriculumcompass.com'
+    const audienceId = process.env.RESEND_AUDIENCE_ID
+    const segmentIds = parseCsvEnv(process.env.RESEND_SEGMENT_IDS ?? process.env.RESEND_SEGMENT_ID)
+    const topicId = process.env.RESEND_TOPIC_ID
+    const notificationEmail = process.env.LEAD_NOTIFICATION_EMAIL ?? process.env.RESEND_LEAD_NOTIFICATION_EMAIL
 
     if (!apiKey) {
       console.error('RESEND_API_KEY is not set in the environment.')
@@ -58,33 +181,27 @@ export async function POST(request: Request) {
       quiz_answers: summarizeAnswers(answers),
       captured_at: new Date().toISOString(),
     }
-    const audienceId = process.env.RESEND_AUDIENCE_ID
-    const contactPayload = {
-      ...(audienceId ? { audienceId } : {}),
-      email,
-      unsubscribed: false,
-      properties: contactProperties,
-    }
 
-    const contactCreate = await resend.contacts.create(contactPayload)
-    if (contactCreate.error) {
-      const updatePayload = {
-        ...(audienceId ? { audienceId } : {}),
+    let contactId: string | null = null
+    try {
+      const contact = await upsertContact({
+        resend,
         email,
-        unsubscribed: false,
         properties: contactProperties,
-      }
-      const contactUpdate = await resend.contacts.update(updatePayload)
-      if (contactUpdate.error) {
-        console.error('Resend contact storage error:', contactCreate.error, contactUpdate.error)
-        return NextResponse.json(
-          { error: 'We could not save your quiz results right now. Please try again.' },
-          { status: 502 }
-        )
-      }
+        audienceId,
+        segmentIds,
+        topicId,
+      })
+      contactId = contact.id
+    } catch {
+      return NextResponse.json(
+        { error: 'We could not save your quiz results right now. Please try again.' },
+        { status: 502 }
+      )
     }
 
     const { html, text } = buildMatchesEmail({ matches, siteUrl })
+    const emailTags = buildEmailTags(segments)
 
     const { data, error } = await resend.emails.send({
       from: `The Curriculum Compass <${fromEmail}>`,
@@ -92,11 +209,11 @@ export async function POST(request: Request) {
       subject: `Your Top ${matches.length} Homeschool Curriculum Match${matches.length > 1 ? 'es' : ''}`,
       html,
       text,
-      tags: buildEmailTags(segments),
+      tags: emailTags,
     })
 
     if (error) {
-      console.error('Resend send error:', error)
+      console.error('Resend send error:', error.message)
       return NextResponse.json(
         { error: 'We could not send your email right now. Please try again.' },
         { status: 502 }
@@ -112,7 +229,7 @@ export async function POST(request: Request) {
         text: message.text,
         scheduledAt: message.scheduledAt,
         tags: [
-          ...buildEmailTags(segments),
+          ...emailTags,
           { name: 'sequence', value: message.sequence },
         ],
       })
@@ -125,7 +242,20 @@ export async function POST(request: Request) {
       console.error(`Resend follow-up scheduling failures: ${failedFollowUps}`)
     }
 
-    return NextResponse.json({ success: true, id: data?.id ?? null, followUpsScheduled: followUps.length - failedFollowUps })
+    await sendLeadNotification({
+      resend,
+      fromEmail,
+      notificationEmail,
+      email,
+      properties: contactProperties,
+    })
+
+    return NextResponse.json({
+      success: true,
+      id: data?.id ?? null,
+      contactId,
+      followUpsScheduled: followUps.length - failedFollowUps,
+    })
   } catch (err) {
     console.error('Subscribe route error:', err)
     return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 })
