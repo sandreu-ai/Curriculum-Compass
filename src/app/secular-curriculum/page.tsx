@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: hub.title,
   description: hub.description,
   alternates: { canonical: hub.path },
-  openGraph: { title: hub.title, description: hub.description, url: hub.path, type: 'website', images: ['/og-image.svg'] },
+  openGraph: { title: hub.title, description: hub.description, url: hub.path, type: 'website', images: ['/og-image.png'] },
 }
 
 export default function Page() {

@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: { canonical: `/homeschool-laws/${getStateSlug(state.state)}` },
-    openGraph: { title, description, url: `/homeschool-laws/${getStateSlug(state.state)}`, type: 'article', images: ['/og-image.svg'] },
-    twitter: { card: 'summary_large_image', title, description, images: ['/og-image.svg'] },
+    openGraph: { title, description, url: `/homeschool-laws/${getStateSlug(state.state)}`, type: 'article', images: ['/og-image.png'] },
+    twitter: { card: 'summary_large_image', title, description, images: ['/og-image.png'] },
   }
 }
 

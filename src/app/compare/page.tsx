@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'Side-by-side homeschool curriculum comparisons for high-intent parent decisions.',
     url: '/compare',
     type: 'website',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
 }
 

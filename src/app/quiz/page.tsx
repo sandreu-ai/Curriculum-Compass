@@ -13,13 +13,13 @@ export const metadata: Metadata = {
       'Free 20-question quiz matches your family to the right homeschool curriculum. Personalized results in minutes.',
     url: '/quiz',
     type: 'website',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Homeschool Curriculum Quiz — Find Your Match in 5 Minutes',
     description: 'Free 20-question quiz matches your family to the right homeschool curriculum.',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
 }
 

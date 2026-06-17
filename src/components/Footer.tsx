@@ -7,6 +7,7 @@ import SisterSitesBanner from './SisterSitesBanner'
 
 const footerLinks = [
   { href: '/quiz', label: 'Take the Quiz' },
+  { href: '/guides', label: 'Curriculum Guides' },
   { href: '/tools', label: 'Decision Tools' },
   { href: '/topical-map', label: 'Topical Map' },
   { href: '/best', label: 'Best Curriculum' },

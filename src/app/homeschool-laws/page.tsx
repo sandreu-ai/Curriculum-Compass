@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     description: 'Quick-reference homeschool law pages for all 50 states and DC.',
     url: '/homeschool-laws',
     type: 'website',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
-  twitter: { card: 'summary_large_image', title: 'Homeschool Laws by State', images: ['/og-image.svg'] },
+  twitter: { card: 'summary_large_image', title: 'Homeschool Laws by State', images: ['/og-image.png'] },
 }
 
 export default function HomeschoolLawsPage() {

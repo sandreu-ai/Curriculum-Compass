@@ -14,7 +14,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description: page.description,
     alternates: { canonical: `/guides/${page.slug}` },
     robots: { index: false, follow: true },
-    openGraph: { title: page.title, description: page.description, url: `/guides/${page.slug}`, type: 'article', images: ['/og-image.svg'] },
+    openGraph: { title: page.title, description: page.description, url: `/guides/${page.slug}`, type: 'article', images: ['/og-image.png'] },
   }
 }
 

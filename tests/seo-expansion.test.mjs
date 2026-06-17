@@ -6,12 +6,12 @@ const root = new URL('../', import.meta.url)
 const exists = (path) => existsSync(new URL(path, root))
 const read = (path) => readFileSync(new URL(path, root), 'utf8')
 
-test('step 1 technical polish: OG image, quiz h1, shorter review meta, trust signals', () => {
-  assert.equal(exists('public/og-image.svg'), true, 'sitewide OG image asset should exist')
+test('step 1 technical polish: PNG OG image, quiz h1, shorter review meta, trust signals', () => {
+  assert.equal(exists('public/og-image.png'), true, 'sitewide PNG OG image asset should exist')
 
   const layout = read('src/app/layout.tsx')
-  assert.match(layout, /images:\s*\[\s*['"]\/og-image\.svg['"]\s*\]/, 'root metadata should expose OG image')
-  assert.match(layout, /twitter:[\s\S]*images:\s*\[\s*['"]\/og-image\.svg['"]\s*\]/, 'twitter metadata should expose image')
+  assert.match(layout, /images:\s*\[\s*['"]\/og-image\.png['"]\s*\]/, 'root metadata should expose PNG OG image')
+  assert.match(layout, /twitter:[\s\S]*images:\s*\[\s*['"]\/og-image\.png['"]\s*\]/, 'twitter metadata should expose PNG image')
 
   const quiz = read('src/app/quiz/page.tsx')
   assert.match(quiz, /<h1[^>]*>\s*Homeschool Curriculum Quiz\s*<\/h1>/, 'quiz page should render a server-side H1')
@@ -136,6 +136,7 @@ test('technical SEO hardening: canonical redirects, guide noindex, deterministic
 
   const sitemap = read('src/app/sitemap.ts')
   assert.match(sitemap, /SITE_LAST_UPDATED/, 'sitemap should use deterministic site dates')
+  assert.match(sitemap, /\/guides/, 'sitemap should include the public curriculum guides hub')
   assert.doesNotMatch(sitemap, /supportingGuideRoutes/, 'thin guide briefs should not be included in sitemap')
   assert.doesNotMatch(sitemap, /allSupportingPages/, 'sitemap should not import supporting guide briefs')
 
@@ -150,6 +151,7 @@ test('technical SEO hardening: canonical redirects, guide noindex, deterministic
   assert.match(compare, /'@type': 'Article'/, 'Comparison pages should include Article schema')
 
   const nav = read('src/components/NavBar.tsx')
+  assert.match(nav, /href: '\/guides'/, 'Nav should link to the public curriculum guides hub')
   assert.match(nav, /href: '\/best'/, 'Nav should link to best-fit SEO hub')
   assert.match(nav, /href: '\/compare'/, 'Nav should link to comparison SEO hub')
   assert.match(nav, /href: '\/homeschool-laws'/, 'Nav should link directly to state-law SEO hub')

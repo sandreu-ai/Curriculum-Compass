@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: comparison.title,
     description,
     alternates: { canonical: `/compare/${comparison.slug}` },
-    openGraph: { title: comparison.title, description, url: `/compare/${comparison.slug}`, type: 'article', images: ['/og-image.svg'] },
-    twitter: { card: 'summary_large_image', title: comparison.title, description, images: ['/og-image.svg'] },
+    openGraph: { title: comparison.title, description, url: `/compare/${comparison.slug}`, type: 'article', images: ['/og-image.png'] },
+    twitter: { card: 'summary_large_image', title: comparison.title, description, images: ['/og-image.png'] },
   }
 }
 

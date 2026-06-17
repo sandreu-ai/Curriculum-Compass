@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Best Homeschool Curriculum Guides',
   description: 'Find the best homeschool curriculum by family priority, state, learning need, worldview, budget, teaching style, and grade level.',
   alternates: { canonical: '/best' },
-  openGraph: { title: 'Best Homeschool Curriculum Guides', description: 'Best-fit homeschool curriculum guides by learning need, worldview, budget, teaching style, grade level, and state requirements.', url: '/best', type: 'website', images: ['/og-image.svg'] },
+  openGraph: { title: 'Best Homeschool Curriculum Guides', description: 'Best-fit homeschool curriculum guides by learning need, worldview, budget, teaching style, grade level, and state requirements.', url: '/best', type: 'website', images: ['/og-image.png'] },
 }
 
 export default function BestHubPage() {

@@ -9,6 +9,7 @@ import OurSitesDropdown from './OurSitesDropdown'
 
 const links = [
   { href: '/quiz', label: 'Take the Quiz' },
+  { href: '/guides', label: 'Guides' },
   { href: '/best', label: 'Best Picks' },
   { href: '/compare', label: 'Compare' },
   { href: '/directory', label: 'Directory' },

@@ -39,9 +39,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       type: 'article',
       url: `/curriculum/${curriculum.id}`,
-      images: ['/og-image.svg'],
+      images: ['/og-image.png'],
     },
-    twitter: { card: 'summary_large_image', title, description, images: ['/og-image.svg'] },
+    twitter: { card: 'summary_large_image', title, description, images: ['/og-image.png'] },
   }
 }
 
