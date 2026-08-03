@@ -16,6 +16,12 @@ const footerLinks = [
   { href: '/directory', label: 'Browse All Curricula' },
 ]
 
+const trustLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/editorial-policy', label: 'Editorial Policy' },
+]
+
 const legalLinks = [
   { href: '/privacy', label: 'Privacy' },
   { href: '/terms', label: 'Terms' },
@@ -102,7 +108,7 @@ export default function Footer() {
               at no cost to you.
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-              {legalLinks.map(({ href, label }) => (
+              {[...trustLinks, ...legalLinks].map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}

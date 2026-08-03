@@ -242,6 +242,23 @@ export const comparisons: ComparisonPage[] = [
     ],
   },
 
+  {
+    slug: 'abeka-vs-sonlight',
+    title: 'Abeka vs Sonlight: Traditional Christian or Literature-Based Homeschool?',
+    intro: 'Abeka and Sonlight both serve Christian homeschool families, but the day-to-day experience is very different. Abeka feels like a structured traditional school-at-home plan, while Sonlight is literature-rich, discussion-heavy, and built around read-alouds.',
+    curriculumA: 'abeka',
+    curriculumB: 'sonlight',
+    verdict: 'Choose Abeka if you want traditional structure, workbook practice, and a clear academic sequence. Choose Sonlight if your family loves books, discussion, history, and learning through stories.',
+    bestForA: ['Families wanting a traditional Christian school-at-home rhythm', 'Students who do well with direct instruction and written practice', 'Parents who want clear scope, sequence, and daily assignments'],
+    bestForB: ['Families who love read-alouds and literature', 'Students who learn through stories and discussion', 'Parents who want Christian history and literature woven together'],
+    keyDifferences: ['Abeka is more workbook- and textbook-driven; Sonlight is more literature- and discussion-driven.', 'Abeka usually feels more traditional and structured; Sonlight usually requires more parent reading time.', 'Sonlight may be easier to adapt for book-loving mixed-age families, while Abeka may fit families wanting grade-by-grade academic clarity.'],
+    faqs: [
+      { question: 'Is Abeka or Sonlight better for new homeschoolers?', answer: 'Abeka can feel clearer for parents who want traditional daily assignments. Sonlight can be easier for families who already love read-alouds, but it requires consistent parent time and discussion.' },
+      { question: 'Which is more parent intensive, Abeka or Sonlight?', answer: 'Both require parent involvement. Abeka requires teaching and checking structured assignments; Sonlight requires substantial reading aloud and discussion.' },
+      { question: 'Can I combine Abeka and Sonlight?', answer: 'Yes. Some families use Abeka for skill subjects such as math or language arts and Sonlight for literature, Bible, history, or read-alouds.' },
+    ],
+  },
+
 ]
 
 export function getComparisonBySlug(slug: string): ComparisonPage | undefined {

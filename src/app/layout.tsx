@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
-import { SITE_NAME, SITE_URL } from '@/lib/siteConfig'
+import { SITE_CONTACT_EMAIL, SITE_NAME, SITE_URL } from '@/lib/siteConfig'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -67,9 +67,26 @@ const organizationJsonLd = {
   '@type': 'Organization',
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/icon.png`,
+  logo: `${SITE_URL}/logo.png`,
+  image: `${SITE_URL}/og-image.png`,
+  email: SITE_CONTACT_EMAIL,
   description:
-    'A free homeschool curriculum matching service — helping families find the right fit through a personalized 20-question quiz and reviews of 40+ curricula.',
+    'A homeschool curriculum comparison and decision-support site that helps families choose curriculum by learning style, worldview, grade level, parent involvement, budget, and state requirements.',
+  knowsAbout: [
+    'homeschool curriculum',
+    'curriculum comparison',
+    'Christian homeschool curriculum',
+    'secular homeschool curriculum',
+    'homeschool curriculum for ADHD',
+    'homeschool curriculum for dyslexia',
+    'state homeschool laws',
+  ],
+  publishingPrinciples: `${SITE_URL}/editorial-policy`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'editorial and reader support',
+    email: SITE_CONTACT_EMAIL,
+  },
 }
 
 const websiteJsonLd = {
@@ -77,6 +94,7 @@ const websiteJsonLd = {
   '@type': 'WebSite',
   name: SITE_NAME,
   url: SITE_URL,
+  description: 'Answer-first homeschool curriculum guides, comparison tables, free decision tools, and curriculum reviews for parents.',
   potentialAction: {
     '@type': 'SearchAction',
     target: `${SITE_URL}/directory?q={search_term_string}`,

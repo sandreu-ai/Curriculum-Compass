@@ -113,6 +113,38 @@ export default function HomePage() {
       {/* Hero + Stats — animated client component */}
       <HeroSection stats={stats} />
 
+
+      {/* Answer-first AEO hubs */}
+      <section className="bg-white border-t border-cream-darker">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+          <AnimatedSection className="text-center mb-10">
+            <p className="font-body text-sm font-semibold uppercase tracking-wide text-forest">Start with the short answer</p>
+            <h2 className="mt-2 font-heading text-3xl md:text-4xl text-forest-dark">
+              What is the best homeschool curriculum?
+            </h2>
+            <p className="mt-4 font-body text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
+              The best homeschool curriculum is the one that fits your child’s learning needs, your family’s worldview, your available teaching time, and your budget. Start with a shortlist by use case, then compare daily lesson flow before buying.
+            </p>
+          </AnimatedSection>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              ['Best for ADHD', '/best/homeschool-curriculum-for-adhd', 'Short lessons, movement, clear routines, and flexible pacing matter more than a perfect boxed plan.'],
+              ['Best for dyslexia', '/best/homeschool-curriculum-for-dyslexia', 'Look first for explicit, sequential, multisensory reading support, then adapt content subjects.'],
+              ['Best Christian curriculum', '/best/christian-homeschool-curriculum', 'Choose by worldview depth, daily structure, parent teaching load, and whether your child thrives with textbooks, living books, or online support.'],
+              ['Best secular curriculum', '/best/secular-homeschool-curriculum', 'Verify subject-by-subject worldview fit and decide whether you need fully secular or simply faith-neutral materials.'],
+              ['Best open-and-go curriculum', '/best/open-and-go-homeschool-curriculum', 'Low-prep programs work best when they reduce planning without creating unrealistic seatwork.'],
+              ['Best online curriculum', '/best/online-homeschool-curriculum', 'Online programs can reduce parent load, but younger students still need oversight, reading practice, and offline balance.'],
+            ].map(([title, href, answer]) => (
+              <Link key={href} href={href} className="rounded-2xl border border-cream-darker bg-cream p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+                <h3 className="font-heading text-xl text-forest-dark">{title}</h3>
+                <p className="mt-2 font-body text-sm leading-relaxed text-gray-700">{answer}</p>
+                <span className="mt-4 inline-block font-body text-sm font-bold text-forest">Read the guide →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* How it works */}
       <AnimatedSection className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
         <div className="text-center mb-12">

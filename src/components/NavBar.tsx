@@ -14,6 +14,7 @@ const links = [
   { href: '/compare', label: 'Compare' },
   { href: '/directory', label: 'Directory' },
   { href: '/homeschool-laws', label: 'State Laws' },
+  { href: '/tools', label: 'Tools' },
 ]
 
 export default function NavBar() {

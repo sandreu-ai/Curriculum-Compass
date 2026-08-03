@@ -1,5 +1,5 @@
 const CANONICAL_HOST = 'www.thecurriculumcompass.com'
-const REDIRECT_HOSTS = ['thecurriculumcompass.com', 'curriculumcompass.com', 'www.curriculumcompass.com']
+const REDIRECT_HOSTS = ['thecurriculumcompass.com', 'curriculumcompass.com', 'www.curriculumcompass.com', 'curriculumcampus.com', 'www.curriculumcampus.com']
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

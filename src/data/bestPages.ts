@@ -170,6 +170,63 @@ export const bestPages: BestPage[] = [
       { question: 'What is the best high school homeschool curriculum for college prep?', answer: 'Look for rigorous writing, lab science support, Algebra I through advanced math options, and clear grading. BJU Press, Veritas Press, Kolbe Academy, Apologia, and Notgrass can each fit different subjects.' },
     ],
   },
+
+  {
+    slug: 'homeschool-math-curriculum',
+    title: 'Best Homeschool Math Curriculum',
+    description: 'Compare homeschool math curriculum by mastery vs spiral review, online support, manipulatives, parent involvement, and struggling-learner fit.',
+    audience: 'Parents choosing a math path for students who need either hands-on mastery, steady spiral review, online explanation, or a more confidence-building sequence.',
+    criteria: ['Clear explanations', 'Appropriate review rhythm', 'Placement support', 'Parent teaching fit', 'Strong long-term sequence'],
+    curriculumIds: ['math-u-see', 'saxon-math', 'rightstart-math', 'teaching-textbooks', 'life-of-fred', 'bju-press'],
+    buyingAdvice: 'Pick math by how your child retains concepts. Visual and struggling learners often need concrete manipulatives or mastery pacing; students who forget easily may need spiral review; parents who need grading help may prefer an online math program.',
+    faqs: [
+      { question: 'What is the best homeschool math curriculum?', answer: 'The best homeschool math curriculum depends on how your child learns. Math-U-See and RightStart are strong for visual and hands-on learners, Saxon is known for spiral review, and Teaching Textbooks can help families who need online explanations and automated grading.' },
+      { question: 'Should I choose mastery or spiral math?', answer: 'Choose mastery when your child needs to deeply understand one concept before moving on. Choose spiral when your child understands lessons but forgets without frequent mixed review.' },
+      { question: 'How do I switch homeschool math curriculum?', answer: 'Use the new publisher’s placement test, expect gaps or overlap, and avoid choosing only by grade label because math scopes and sequences differ widely.' },
+    ],
+  },
+  {
+    slug: 'homeschool-reading-curriculum',
+    title: 'Best Homeschool Reading Curriculum',
+    description: 'Reading and language arts curriculum options for beginning readers, dyslexia support, phonics, spelling, literature, and writing confidence.',
+    audience: 'Families teaching beginning readers, struggling readers, dyslexic students, or children who need a clearer reading and language arts path.',
+    criteria: ['Explicit phonics', 'Multisensory practice', 'Readable lesson flow', 'Spelling and fluency support', 'Gentle progress tracking'],
+    curriculumIds: ['all-about-reading', 'all-about-spelling', 'good-and-beautiful', 'brave-writer', 'iew', 'sonlight'],
+    buyingAdvice: 'If reading is hard, solve decoding first with explicit phonics before expecting heavy independent reading in history or science. Use read-alouds and audiobooks so content learning can continue while reading catches up.',
+    faqs: [
+      { question: 'What is the best homeschool reading curriculum for struggling readers?', answer: 'Many families start with explicit, sequential, multisensory programs such as All About Reading, then add spelling, fluency practice, and read-aloud support as the student gains confidence.' },
+      { question: 'Do I need separate spelling and reading curriculum?', answer: 'Often yes. Reading focuses on decoding and fluency, while spelling focuses on encoding, phonograms, and rules. Some families combine them, but struggling readers may need each skill taught directly.' },
+      { question: 'Should a dyslexic student read all subjects independently?', answer: 'Not at first. Keep history, science, and literature moving through read-alouds, audiobooks, oral narration, and discussion while direct reading instruction continues.' },
+    ],
+  },
+  {
+    slug: 'homeschool-science-curriculum',
+    title: 'Best Homeschool Science Curriculum',
+    description: 'Compare homeschool science curriculum for Christian, secular, hands-on, conversational, textbook, elementary, middle school, and high school needs.',
+    audience: 'Parents looking for science that fits worldview, lab expectations, student age, reading level, and how much experiment setup they can realistically handle.',
+    criteria: ['Worldview fit', 'Hands-on practicality', 'Clear explanations', 'Grade-appropriate depth', 'Lab and notebook support'],
+    curriculumIds: ['apologia', 'bju-press', 'good-and-beautiful', 'oak-meadow', 'moving-beyond-the-page', 'timberdoodle'],
+    buyingAdvice: 'Choose science by worldview and implementation. A rigorous high school science plan needs labs and records; elementary science can be more curiosity-driven, hands-on, and discussion-based.',
+    faqs: [
+      { question: 'What is the best homeschool science curriculum?', answer: 'Apologia and BJU Press are common Christian science choices, while Oak Meadow and Moving Beyond the Page appeal to many secular-friendly families. The best fit depends on worldview, grade level, lab needs, and parent prep.' },
+      { question: 'Do elementary homeschoolers need formal science curriculum?', answer: 'Not always. Many younger students learn well through nature study, experiments, read-alouds, and observation. Formal curriculum becomes more important as students approach middle and high school.' },
+      { question: 'How should homeschoolers handle high school science labs?', answer: 'Choose a course with clear lab instructions, keep records of lab work, save samples or photos when helpful, and align credits with your state and transcript goals.' },
+    ],
+  },
+  {
+    slug: 'catholic-homeschool-curriculum',
+    title: 'Best Catholic Homeschool Curriculum',
+    description: 'Catholic homeschool curriculum options for families comparing classical structure, accreditation support, parent teaching load, and faith integration.',
+    audience: 'Catholic families who want academics, faith formation, and parent-manageable daily structure to work together.',
+    criteria: ['Catholic worldview', 'Classical or traditional strength', 'Parent guidance', 'High school credibility', 'Community or enrollment support'],
+    curriculumIds: ['kolbe-academy', 'memoria-press', 'veritas-press', 'sonlight', 'apologia', 'iew'],
+    buyingAdvice: 'Catholic families should decide how much formal Catholic integration, outside accountability, and classical structure they want before comparing subject-by-subject curriculum.',
+    faqs: [
+      { question: 'What is the best Catholic homeschool curriculum?', answer: 'Kolbe Academy is a common Catholic option for families wanting a structured Catholic path. Some Catholic families also mix classical, writing, science, and literature providers while adding dedicated catechesis.' },
+      { question: 'Can Catholic homeschoolers use Protestant or secular curriculum?', answer: 'Many do, especially by subject, but parents should review worldview assumptions, religion content, literature choices, and science framing before purchase.' },
+      { question: 'Is accreditation necessary for Catholic homeschooling?', answer: 'Usually no, but some families value an accredited or enrolled program for accountability, transcripts, or high school planning.' },
+    ],
+  },
 ]
 
 
