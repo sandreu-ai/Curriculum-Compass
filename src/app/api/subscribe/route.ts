@@ -39,6 +39,10 @@ function buildContactPayload({
   }
 }
 
+function isMissingResendPropertyError(error?: { message?: string } | null): boolean {
+  return /properties do not exist/i.test(error?.message ?? '')
+}
+
 async function upsertContact({
   resend,
   email,
@@ -55,20 +59,40 @@ async function upsertContact({
   topicId?: string
 }): Promise<{ id: string | null; created: boolean }> {
   const createPayload = buildContactPayload({ email, properties, audienceId, segmentIds, topicId })
-  const created = await resend.contacts.create(createPayload)
+  let created = await resend.contacts.create(createPayload)
 
   if (!created.error) {
     return { id: created.data?.id ?? null, created: true }
   }
 
+  if (isMissingResendPropertyError(created.error)) {
+    console.warn('Resend contact properties are not configured; retrying contact create without custom properties.')
+    created = await resend.contacts.create(
+      buildContactPayload({ email, properties: {}, audienceId, segmentIds, topicId })
+    )
+    if (!created.error) {
+      return { id: created.data?.id ?? null, created: true }
+    }
+  }
+
   // Most repeat quiz-takers fail create because the contact already exists. Updating by email
   // keeps tags/properties fresh without requiring IMAP or mailbox access.
-  const updated = await resend.contacts.update({
+  let updated = await resend.contacts.update({
     ...(audienceId && segmentIds.length === 0 ? { audienceId } : {}),
     email,
     unsubscribed: false,
     properties,
   })
+
+  if (isMissingResendPropertyError(updated.error)) {
+    console.warn('Resend contact properties are not configured; retrying contact update without custom properties.')
+    updated = await resend.contacts.update({
+      ...(audienceId && segmentIds.length === 0 ? { audienceId } : {}),
+      email,
+      unsubscribed: false,
+      properties: {},
+    })
+  }
 
   if (updated.error) {
     console.error('Resend contact upsert error:', {
