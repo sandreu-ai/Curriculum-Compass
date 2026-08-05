@@ -5,7 +5,7 @@ Last updated: 2026-06-07
 ## Active affiliate approvals / links
 - Sonlight: approved; tracking link active; W-9 required before commissions are processed. Filled local W-9 draft/flattened PDF created in the local Windows tax folder, but do not send externally until tax classification/signature treatment is confirmed.
 - Master Books: approved; tracking link active.
-- Moving Beyond the Page: affiliate application submitted; wait for response.
+- Moving Beyond the Page: approved; tracking link active.
 
 ## Newly contacted verified routes
 - BookShark: official affiliate email contacted.

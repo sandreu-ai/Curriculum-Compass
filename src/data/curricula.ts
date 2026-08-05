@@ -1004,10 +1004,10 @@ export const curricula: Curriculum[] = [
       'Gifted-pacing may be too fast for some learners',
     ],
     faithOrientation: 'secular',
-    affiliateUrl: 'https://www.movingbeyondthepage.com/',
+    affiliateUrl: 'https://www.beyondthepage.com/purchase/choose-an-age-level.aspx?aID=8adad607',
     websiteUrl: 'https://www.movingbeyondthepage.com',
     stateAccepted: 'all',
-    lastVerified: '2025-01-01',
+    lastVerified: '2026-08-05',
   },
   {
     id: 'torchlight',
