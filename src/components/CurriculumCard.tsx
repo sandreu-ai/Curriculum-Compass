@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import type { Curriculum } from '@/types'
 import TagBadge from './TagBadge'
+import OutboundCurriculumLink from './OutboundCurriculumLink'
 
 interface CurriculumCardProps {
   curriculum: Curriculum
@@ -146,17 +147,20 @@ export default function CurriculumCard({
               Learn More
             </Link>
           </motion.div>
-          <motion.a
-            href={curriculum.affiliateUrl}
-            target="_blank"
-            rel="sponsored noopener noreferrer"
-            className="flex-1 text-center bg-forest text-cream font-body font-semibold text-sm py-2.5 rounded-lg hover:bg-forest-light transition-colors duration-200"
+          <motion.div
+            className="flex-1"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
           >
-            Visit Website →
-          </motion.a>
+            <OutboundCurriculumLink
+              curriculum={curriculum}
+              linkContext={compact ? 'curriculum_card_compact' : 'curriculum_card'}
+              className="block text-center bg-forest text-cream font-body font-semibold text-sm py-2.5 rounded-lg hover:bg-forest-light transition-colors duration-200"
+            >
+              Visit Website →
+            </OutboundCurriculumLink>
+          </motion.div>
         </div>
       </div>
     </motion.div>

@@ -5,6 +5,7 @@ import { curricula } from '@/data/curricula'
 import { getComparisonsForCurriculum } from '@/data/comparisons'
 import TagBadge from '@/components/TagBadge'
 import CurriculumCard from '@/components/CurriculumCard'
+import OutboundCurriculumLink from '@/components/OutboundCurriculumLink'
 import {
   FAITH_LABELS,
   buildCurriculumMetaDescription,
@@ -238,7 +239,7 @@ export default function CurriculumDetailPage({ params }: PageProps) {
               <div className="bg-forest rounded-2xl p-5 text-white">
                 <h3 className="font-heading text-lg mb-2">Ready to learn more?</h3>
                 <p className="font-body text-green-100 text-sm mb-4">Visit the official {curriculum.name} website for current pricing, samples, and ordering.</p>
-                <a href={curriculum.affiliateUrl} target="_blank" rel="sponsored noopener noreferrer" className="block w-full text-center bg-white text-forest font-body font-bold py-3 rounded-xl hover:bg-cream transition-colors duration-200 text-sm">Visit {curriculum.name} →</a>
+                <OutboundCurriculumLink curriculum={curriculum} linkContext="curriculum_detail_sidebar" className="block w-full text-center bg-white text-forest font-body font-bold py-3 rounded-xl hover:bg-cream transition-colors duration-200 text-sm">Visit {curriculum.name} →</OutboundCurriculumLink>
               </div>
 
               <div className="bg-cream-dark rounded-2xl border border-cream-darker p-5">
